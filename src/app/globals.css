@@ -84,8 +84,76 @@ body {
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  body {
-    overflow: hidden;
+.presentation-stage {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.presentation-shell {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presentation-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.presentation-slide-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+.presentation-slide {
+  width: 100%;
+  height: 100%;
+  max-width: min(100%, 1500px);
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .presentation-shell {
+    padding: 1rem;
+  }
+
+  .presentation-root {
+    width: min(calc(100vw - 2rem), calc((100vh - 2rem) * 16 / 9));
+    height: min(calc(100vh - 2rem), calc((100vw - 2rem) * 9 / 16));
+    max-height: 100vh;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 10, 15, 0.22);
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+  }
+}
+
+@media (max-width: 767px) {
+  .presentation-root {
+    border-radius: 0;
+  }
+
+  .presentation-slide-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 3.2rem;
+    padding-bottom: 4.4rem;
+  }
+
+  .presentation-root .text-xs {
+    font-size: 0.78rem;
+  }
+
+  .presentation-root .text-sm {
+    font-size: 0.92rem;
   }
 }

@@ -12,6 +12,16 @@ export type SlideType =
   | 'case-study'
   | 'closing';
 
+export type SlideLayout =
+  | 'default'
+  | 'split'
+  | 'quote-full'
+  | 'comparison'
+  | 'icon-grid'
+  | 'number-spotlight';
+
+export type SlideAnimation = 'fade-up' | 'scale-in' | 'stagger-left' | 'typewriter';
+
 export interface Slide {
   id: string;
   type: SlideType;
@@ -26,7 +36,19 @@ export interface Slide {
   visualization?: string;
   interaction?: string;
   notes?: string;
+  layout?: SlideLayout;
+  animation?: SlideAnimation;
+  atmosphereImage?: string;
+  atmosphereAlt?: string;
 }
+
+export const atmosphereImages = {
+  factory: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200',
+  team: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200',
+  data: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200',
+  strategy: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200',
+  ai: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200',
+} as const;
 
 export const slides: Slide[] = [
   // ============================================================
@@ -60,6 +82,10 @@ export const slides: Slide[] = [
     quote: 'Before we talk about AI strategy, AI tools, AI anything - where are you, honestly, right now? Not where your board thinks you are. Where you actually are.',
     attribution: 'ACKU-AI Masterclass',
     content: 'That honesty is where real progress starts.',
+    layout: 'quote-full',
+    animation: 'typewriter',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Team in discussion',
   },
 
   {
@@ -70,6 +96,10 @@ export const slides: Slide[] = [
     quote: 'Every panel had someone talking about their AI transformation. Incredible demos. Beautiful slides. Then I\'d ask at the bar: "How many people actually use these tools day to day?" Long pause. "We\'re still in pilot phase." Every. Time.',
     attribution: 'The gap between what companies present and what\'s actually happening',
     content: 'AI Theater: Great performance, empty seats.',
+    layout: 'split',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Collaboration meeting',
   },
 
   {
@@ -107,6 +137,10 @@ export const slides: Slide[] = [
       'You can name your AI initiatives but not your AI users',
     ],
     content: 'The root cause: organizations start with technology and work backward to problems.',
+    layout: 'icon-grid',
+    animation: 'stagger-left',
+    atmosphereImage: atmosphereImages.ai,
+    atmosphereAlt: 'AI technology abstract',
   },
 
   {
@@ -116,6 +150,10 @@ export const slides: Slide[] = [
     title: 'The Predictive Maintenance Demo',
     quote: 'Beautiful model. Six months of development. The plant manager watched, nodded, said "That\'s great." Never used it. Why? The model predicted failures 48 hours out, but maintenance scheduling worked on weekly cycles. Nobody asked what he actually needed.',
     attribution: 'AI Theater in action',
+    layout: 'number-spotlight',
+    animation: 'scale-in',
+    atmosphereImage: atmosphereImages.factory,
+    atmosphereAlt: 'Factory production line',
   },
 
   {
@@ -163,6 +201,10 @@ export const slides: Slide[] = [
     quote: 'Our first wins weren\'t glamorous. Summarizing regulatory documents. Drafting SOPs faster. Analyzing complaint trends. None of that makes a keynote. But it saved people hours every week, and those people became evangelists.',
     attribution: 'Within 18 months: 1,000+ people actively using AI tools',
     content: 'Not because I told them to. Because early adopters told them it actually worked.',
+    layout: 'split',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.data,
+    atmosphereAlt: 'Analytics dashboard',
   },
 
   // ============================================================
@@ -188,6 +230,10 @@ export const slides: Slide[] = [
       'Wrong Talent Model: You don\'t need 20 data scientists. You need to upskill your domain experts.',
     ],
     content: 'Most AI strategies are dead on arrival. They fail before the first model is built.',
+    layout: 'comparison',
+    animation: 'scale-in',
+    atmosphereImage: atmosphereImages.strategy,
+    atmosphereAlt: 'Strategy planning table',
   },
 
   {
@@ -210,6 +256,10 @@ export const slides: Slide[] = [
     title: 'Three Types of AI Strategy',
     quote: 'Type one: "Innovation Theater" - 40 beautiful pages, presented to the board, never referenced again. Type two: "IT Project" - everything through the tech lens, dies when the CTO moves on. Type three: the one that works.',
     attribution: 'A living document owned by the business, with clear use cases tied to real pain points',
+    layout: 'split',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.strategy,
+    atmosphereAlt: 'Strategic workshop',
   },
 
   {
@@ -237,6 +287,10 @@ export const slides: Slide[] = [
     title: 'The Highest-Scoring Use Case',
     quote: 'It wasn\'t anything sexy. Helping quality engineers write deviation investigations faster. 2-3 hours per investigation, hundreds per month. AI drafting cut that to 30-45 minutes. Engineers loved it - freed them for actual root cause analysis.',
     attribution: 'The kind of win that builds momentum',
+    layout: 'quote-full',
+    animation: 'typewriter',
+    atmosphereImage: atmosphereImages.data,
+    atmosphereAlt: 'Data and analysis interface',
   },
 
   {
@@ -253,6 +307,10 @@ export const slides: Slide[] = [
       'Risks: What could go wrong? Prevention? Exit strategy?',
       'Governance: Who owns this? Compliance path?',
     ],
+    layout: 'split',
+    animation: 'stagger-left',
+    atmosphereImage: atmosphereImages.strategy,
+    atmosphereAlt: 'Business planning session',
   },
 
   {
@@ -282,6 +340,10 @@ export const slides: Slide[] = [
       'Finance: Budget and ROI tracking',
       'Operations Champion: Someone who knows the real workflows',
     ],
+    layout: 'icon-grid',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Cross-functional team',
   },
 
   {
@@ -295,6 +357,10 @@ export const slides: Slide[] = [
       'CHRO: "Here\'s how we develop our people, not replace them."',
     ],
     content: 'The CHRO conversation is often skipped. Don\'t skip it.',
+    layout: 'comparison',
+    animation: 'scale-in',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Executive collaboration',
   },
 
   // ============================================================
@@ -330,6 +396,10 @@ export const slides: Slide[] = [
       'Scale Blindness: 20 to 2,000 users isn\'t 100x the same thing. It\'s a fundamentally different problem.',
       'Champion Dependency: Sarah in Plant 3 manually solves every problem. When Sarah gets promoted, the pilot dies.',
     ],
+    layout: 'split',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.factory,
+    atmosphereAlt: 'Industrial manufacturing floor',
   },
 
   {
@@ -387,6 +457,10 @@ export const slides: Slide[] = [
       'Quick wins first - save someone 30 minutes THIS WEEK. Then talk vision.',
       'Feedback loops that matter - ask what\'s not working, then fix it visibly.',
     ],
+    layout: 'icon-grid',
+    animation: 'stagger-left',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Team workshop',
   },
 
   {
@@ -396,6 +470,10 @@ export const slides: Slide[] = [
     title: 'Maria Changed Everything',
     quote: 'Maria had done the same job for 15 years. Skeptical of AI. She tried one tool: an AI assistant for investigation reports. After a week: "I just got two hours of my life back today." Within six months, she was training other departments.',
     attribution: 'Maria sold our AI program better than any executive presentation ever could. Because she was credible. She was one of them.',
+    layout: 'quote-full',
+    animation: 'typewriter',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Experienced team members collaborating',
   },
 
   {
@@ -432,6 +510,10 @@ export const slides: Slide[] = [
       'Business Impact: Cost savings, quality improvement, working capital impact',
       'Trust: User satisfaction, override rate, Net Promoter Score for AI tools',
     ],
+    layout: 'comparison',
+    animation: 'stagger-left',
+    atmosphereImage: atmosphereImages.data,
+    atmosphereAlt: 'Business dashboard view',
   },
 
   {
@@ -464,6 +546,10 @@ export const slides: Slide[] = [
       'Measure adoption, not accuracy. A tool nobody uses is a failed tool.',
       'Budget for change management. We spent more on training than technology. Right call.',
     ],
+    layout: 'icon-grid',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.factory,
+    atmosphereAlt: 'Factory operations team',
   },
 
   // ============================================================
@@ -521,6 +607,10 @@ export const slides: Slide[] = [
       'Define Risk Tiers Together: Not all AI use cases carry the same risk.',
       'Make Compliance Easy: If approval takes 6 weeks, people go around it.',
     ],
+    layout: 'split',
+    animation: 'fade-up',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Legal and business stakeholders in session',
   },
 
   {
@@ -553,6 +643,10 @@ export const slides: Slide[] = [
       'Use Case Approval Template: Business problem, data needs, risk tier, compliance review.',
       'AI Incident Response Plan: Have this BEFORE you need it. Like a fire drill, not a fire.',
     ],
+    layout: 'icon-grid',
+    animation: 'scale-in',
+    atmosphereImage: atmosphereImages.ai,
+    atmosphereAlt: 'AI technology visualization',
   },
 
   {
@@ -571,6 +665,10 @@ export const slides: Slide[] = [
     title: 'The Moment Trust Was Earned',
     quote: 'A plant manager, skeptical from the start, called me and said: "My team is asking for more AI tools. What else do you have?" He didn\'t call because I asked him to. He called because his team experienced the value.',
     attribution: 'Trust: you can\'t mandate it, you can\'t rush it. You build it through transparency, consistency, competence, and genuine care.',
+    layout: 'quote-full',
+    animation: 'typewriter',
+    atmosphereImage: atmosphereImages.ai,
+    atmosphereAlt: 'AI infrastructure and data network',
   },
 
   // ============================================================
@@ -608,8 +706,31 @@ export const slides: Slide[] = [
 ];
 
 export const modules = [
-  { number: 1, title: 'Where Are You Now?', color: '#00d4aa', duration: '90 min' },
-  { number: 2, title: 'Building Your Strategy', color: '#00a4d4', duration: '90 min' },
-  { number: 3, title: 'Implementation That Sticks', color: '#d4a400', duration: '90 min' },
-  { number: 4, title: 'Governance First', color: '#d44a00', duration: '60 min' },
+  { number: 1, title: 'Where Are You Now?', color: '#f59e0b', duration: '90 min' },
+  { number: 2, title: 'Building Your Strategy', color: '#00d4aa', duration: '90 min' },
+  { number: 3, title: 'Implementation That Sticks', color: '#4f6df5', duration: '90 min' },
+  { number: 4, title: 'Governance First', color: '#d946ef', duration: '60 min' },
 ];
+
+export const moduleThemes: Record<number, { gradient: string; glowA: string; glowB: string }> = {
+  1: {
+    gradient: 'linear-gradient(145deg, #0a0a0f 0%, rgba(245, 158, 11, 0.12) 45%, rgba(249, 115, 22, 0.16) 100%)',
+    glowA: '#f59e0b',
+    glowB: '#fb923c',
+  },
+  2: {
+    gradient: 'linear-gradient(145deg, #0a0a0f 0%, rgba(0, 212, 170, 0.14) 40%, rgba(6, 182, 212, 0.12) 100%)',
+    glowA: '#00d4aa',
+    glowB: '#22d3ee',
+  },
+  3: {
+    gradient: 'linear-gradient(145deg, #0a0a0f 0%, rgba(79, 109, 245, 0.15) 45%, rgba(99, 102, 241, 0.12) 100%)',
+    glowA: '#4f6df5',
+    glowB: '#6366f1',
+  },
+  4: {
+    gradient: 'linear-gradient(145deg, #0a0a0f 0%, rgba(217, 70, 239, 0.14) 44%, rgba(236, 72, 153, 0.12) 100%)',
+    glowA: '#d946ef',
+    glowB: '#ec4899',
+  },
+};

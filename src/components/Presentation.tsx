@@ -58,25 +58,34 @@ export function Presentation() {
     if (index < 0 || index >= slides.length || isTransitioning) return;
 
     setIsTransitioning(true);
+    const direction = index > currentSlide ? 1 : -1;
 
     // Exit animation
     if (slideContainerRef.current) {
       gsap.to(slideContainerRef.current, {
         opacity: 0,
-        x: index > currentSlide ? -40 : 40,
+        x: direction > 0 ? -40 : 40,
         duration: 0.25,
         ease: 'power2.in',
         onComplete: () => {
+          if (slideContainerRef.current) {
+            // Keep the frame hidden while React swaps slide content.
+            gsap.set(slideContainerRef.current, { opacity: 0, x: direction > 0 ? 40 : -40 });
+          }
           setCurrentSlide(index);
-          // Enter animation
-          gsap.fromTo(slideContainerRef.current,
-            { opacity: 0, x: index > currentSlide ? 40 : -40 },
-            {
-              opacity: 1, x: 0, duration: 0.35,
+          requestAnimationFrame(() => {
+            if (!slideContainerRef.current) {
+              setIsTransitioning(false);
+              return;
+            }
+            gsap.to(slideContainerRef.current, {
+              opacity: 1,
+              x: 0,
+              duration: 0.35,
               ease: 'power2.out',
               onComplete: () => setIsTransitioning(false),
-            }
-          );
+            });
+          });
         },
       });
     } else {
@@ -143,7 +152,7 @@ export function Presentation() {
   if (showOverview) {
     return (
       <div className="fixed inset-0 bg-bg-primary z-50 overflow-auto p-6">
-        <Background />
+        <Background module={currentModule} />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-serif text-2xl text-text-primary">Slide Overview</h2>
@@ -182,8 +191,8 @@ export function Presentation() {
   }
 
   return (
-    <div className="fixed inset-0 overflow-hidden">
-      <Background />
+    <div className="presentation-stage">
+      <Background module={currentModule} />
 
       {/* Click zones for navigation */}
       <button
@@ -209,12 +218,18 @@ export function Presentation() {
         </div>
       </button>
 
-      {/* Slide container */}
-      <div
-        ref={slideContainerRef}
-        className="relative z-10 w-full h-full"
-      >
-        <SlideRenderer slide={currentSlideData} isActive={!isTransitioning} />
+      {/* Slide frame */}
+      <div className="presentation-shell">
+        <div className="presentation-root">
+          <div className="presentation-slide-scroll">
+            <div
+              ref={slideContainerRef}
+              className="presentation-slide relative z-10 w-full h-full"
+            >
+              <SlideRenderer slide={currentSlideData} isActive={!isTransitioning} />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Progress bar */}
