@@ -39,8 +39,8 @@ const quadrants = [
     label: 'Time Fillers',
     sublabel: 'Fine for Learning',
     position: 'bottom-left',
-    color: '#787888',
-    bgColor: 'rgba(120, 120, 136, 0.05)',
+    color: '#b39f87',
+    bgColor: 'rgba(179, 159, 135, 0.07)',
     items: [
       'Low-impact experiments',
       'Learning exercises',

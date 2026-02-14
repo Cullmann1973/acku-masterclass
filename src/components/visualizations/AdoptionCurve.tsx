@@ -32,7 +32,7 @@ const segments = [
     label: 'Holdouts',
     percentage: '~5%',
     description: 'Will never adopt. Don\'t optimize for them.',
-    color: '#787888',
+    color: '#b39f87',
     height: '20%',
     width: '10%',
   },
@@ -113,7 +113,7 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
               <stop offset="0%" stopColor="#00d4aa" />
               <stop offset="50%" stopColor="#00c4ba" />
               <stop offset="75%" stopColor="#00a4d4" />
-              <stop offset="100%" stopColor="#787888" />
+              <stop offset="100%" stopColor="#b39f87" />
             </linearGradient>
           </defs>
 

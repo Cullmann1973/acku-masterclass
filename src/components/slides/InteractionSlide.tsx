@@ -18,36 +18,38 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      // Badge pulse
+      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      const stage = containerRef.current!.querySelector('.interaction-stage');
+
+      timeline.fromTo(
+        stage,
+        { opacity: 0, y: 18, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.62 },
+        0.06
+      );
+
       const badge = containerRef.current!.querySelector('.interaction-badge');
-      gsap.fromTo(badge, { opacity: 0, scale: 0.5 }, {
-        opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', delay: 0.1,
-      });
+      timeline.fromTo(badge, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.35 }, 0.14);
 
-      // Title
       const title = containerRef.current!.querySelector('.interaction-title');
-      gsap.fromTo(title, { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.5, delay: 0.3,
-      });
+      timeline.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, 0.22);
 
-      // Prompt
       const prompt = containerRef.current!.querySelector('.interaction-prompt');
       if (prompt) {
-        gsap.fromTo(prompt, { opacity: 0, scale: 0.95 }, {
-          opacity: 1, scale: 1, duration: 0.5, delay: 0.5,
-        });
+        timeline.fromTo(prompt, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.44 }, 0.32);
       }
 
-      // Items
       const items = containerRef.current!.querySelectorAll('.interaction-item');
-      gsap.fromTo(items, { opacity: 0, y: 15 }, {
-        opacity: 1, y: 0, duration: 0.4, stagger: 0.1, delay: 0.7,
-      });
+      timeline.fromTo(
+        items,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.38, stagger: 0.09 },
+        0.4
+      );
 
-      // Content
       const content = containerRef.current!.querySelector('.interaction-content');
       if (content) {
-        gsap.fromTo(content, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 1 });
+        timeline.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, 0.56);
       }
     }, containerRef);
 
@@ -63,7 +65,7 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
       {/* Different background treatment for interaction slides */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-transparent pointer-events-none" />
 
-      <div className="max-w-3xl w-full relative z-10">
+      <div className="interaction-stage max-w-3xl w-full relative z-10">
         {/* YOUR TURN badge */}
         <div className="interaction-badge inline-flex items-center gap-2 mb-6">
           <div className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />

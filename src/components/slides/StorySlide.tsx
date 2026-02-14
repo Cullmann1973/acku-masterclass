@@ -14,38 +14,11 @@ function extractSpotlightValue(text: string): string {
   return match?.[0] ?? 'Real';
 }
 
-function renderTypewriterQuote(quote: string) {
-  return quote.split(' ').map((word, i) => (
-    <span key={`${word}-${i}`} className="inline-block mr-[0.32ch] opacity-0 typeword">
-      {word}
-    </span>
-  ));
-}
-
-function runStandardAnimation(container: HTMLDivElement, animation: Slide['animation']) {
+function animateStoryElements(container: HTMLDivElement) {
   const items = container.querySelectorAll('[data-story-animate]');
-
-  if (animation === 'scale-in') {
-    gsap.fromTo(
-      items,
-      { opacity: 0, y: 14, scale: 0.96 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.1, delay: 0.12, ease: 'power2.out' }
-    );
-    return;
-  }
-
-  if (animation === 'stagger-left') {
-    gsap.fromTo(
-      items,
-      { opacity: 0, x: -28 },
-      { opacity: 1, x: 0, duration: 0.5, stagger: 0.1, delay: 0.12, ease: 'power2.out' }
-    );
-    return;
-  }
-
   gsap.fromTo(
     items,
-    { opacity: 0, y: 24 },
+    { opacity: 0, y: 20 },
     { opacity: 1, y: 0, duration: 0.55, stagger: 0.1, delay: 0.12, ease: 'power2.out' }
   );
 }
@@ -54,8 +27,6 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
   const layout = slide.layout ?? 'default';
-  const animation = slide.animation ?? (layout === 'quote-full' ? 'typewriter' : 'fade-up');
-
   const spotlight = useMemo(() => extractSpotlightValue(slide.quote ?? ''), [slide.quote]);
 
   useEffect(() => {
@@ -63,47 +34,17 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      if (animation === 'typewriter') {
-        const headings = containerRef.current!.querySelectorAll('[data-story-heading]');
-        gsap.fromTo(headings, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, delay: 0.1 });
-
-        const words = containerRef.current!.querySelectorAll('.typeword');
-        gsap.to(words, {
-          opacity: 1,
-          duration: 0.02,
-          stagger: 0.04,
-          delay: 0.35,
-          ease: 'none',
-        });
-
-        const cursor = containerRef.current!.querySelector('.type-cursor');
-        if (cursor) {
-          gsap.fromTo(cursor, { opacity: 0 }, { opacity: 1, duration: 0.2, repeat: 8, yoyo: true, delay: 0.35 });
-        }
-
-        const after = containerRef.current!.querySelectorAll('[data-story-tail]');
-        gsap.fromTo(after, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 1.15 });
-        return;
-      }
-
-      runStandardAnimation(containerRef.current!, animation);
+      animateStoryElements(containerRef.current!);
     }, containerRef);
 
     return () => ctx.revert();
-  }, [animation, isActive]);
+  }, [isActive]);
 
   useEffect(() => {
     if (!isActive) hasAnimated.current = false;
   }, [isActive]);
 
   const quoteText = slide.quote ?? '';
-  const quoteBody = animation === 'typewriter' ? (
-    <>
-      {renderTypewriterQuote(quoteText)}
-      <span className="type-cursor inline-block w-[2px] h-[1em] align-middle bg-accent ml-1" />
-    </>
-  ) : quoteText;
-
   const imageLayer = slide.atmosphereImage ? (
     <>
       <img
@@ -123,20 +64,20 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         {imageLayer}
         <div className="relative z-10 w-full max-w-5xl text-center">
           {slide.title && (
-            <p data-story-heading className="font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8">
+            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8">
               {slide.title}
             </p>
           )}
-          <blockquote className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8">
-            {quoteBody}
+          <blockquote data-story-animate className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8">
+            {quoteText}
           </blockquote>
           {slide.attribution && (
-            <p data-story-tail className="text-[15px] md:text-base text-accent/90">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary">
               {slide.attribution}
             </p>
           )}
           {slide.content && (
-            <p data-story-tail className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed">
               {slide.content}
             </p>
           )}
@@ -156,13 +97,17 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
               </h3>
             )}
             <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-4xl text-text-primary leading-relaxed mb-6">
-              {quoteBody}
+              {quoteText}
             </blockquote>
             {slide.attribution && (
-              <p data-story-animate className="text-[15px] md:text-sm text-accent mb-4">{slide.attribution}</p>
+              <p data-story-animate className="text-[15px] md:text-sm text-text-secondary mb-4">
+                {slide.attribution}
+              </p>
             )}
             {slide.content && (
-              <p data-story-animate className="text-[15px] md:text-base text-text-secondary leading-relaxed">{slide.content}</p>
+              <p data-story-animate className="text-[15px] md:text-base text-text-secondary leading-relaxed">
+                {slide.content}
+              </p>
             )}
           </div>
           <div data-story-animate className="relative overflow-hidden rounded-2xl border border-white/10 min-h-[260px] md:min-h-[400px]">
@@ -187,10 +132,12 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
             {spotlight}
           </div>
           <blockquote data-story-animate className="font-serif text-xl md:text-3xl text-text-primary leading-relaxed max-w-4xl mx-auto mb-6">
-            {quoteBody}
+            {quoteText}
           </blockquote>
           {slide.attribution && (
-            <p data-story-animate className="text-[15px] md:text-base text-accent/90 mb-4">{slide.attribution}</p>
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary mb-4">
+              {slide.attribution}
+            </p>
           )}
           {slide.content && (
             <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto leading-relaxed">
@@ -216,13 +163,13 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         )}
 
         <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-4xl text-text-primary leading-relaxed mb-6 relative z-10">
-          {quoteBody}
+          {quoteText}
         </blockquote>
 
         {slide.attribution && (
           <div data-story-animate className="flex items-center gap-3 relative z-10">
             <div className="w-8 h-[1px] bg-accent" />
-            <p className="text-[15px] md:text-sm text-accent font-mono">{slide.attribution}</p>
+            <p className="text-[15px] md:text-sm text-text-secondary font-mono">{slide.attribution}</p>
           </div>
         )}
 

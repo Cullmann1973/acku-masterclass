@@ -32,7 +32,7 @@ const tiers = [
     tier: 'Tier 3',
     label: 'Future State',
     sublabel: 'High Impact, Lower Feasibility',
-    color: '#787888',
+    color: '#b39f87',
     items: [
       'Real-time process optimization',
       'Computer vision for inspection',

@@ -21,9 +21,9 @@ const config: Config = {
           glow: "rgba(0, 212, 170, 0.3)",
         },
         text: {
-          primary: "#f0f0f4",
-          secondary: "#a8a8b8",
-          tertiary: "#787888",
+          primary: "#eee4d7",
+          secondary: "#d1c4b1",
+          tertiary: "#b39f87",
         },
         border: {
           DEFAULT: "#1a1a2e",

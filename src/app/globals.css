@@ -7,9 +7,9 @@
   --accent: #00d4aa;
   --accent-blue: #3b82f6;
   --accent-glow: rgba(0, 212, 170, 0.3);
-  --text-primary: #f0f0f4;
-  --text-secondary: #a8a8b8;
-  --text-tertiary: #787888;
+  --text-primary: #eee4d7;
+  --text-secondary: #d1c4b1;
+  --text-tertiary: #b39f87;
   --border: #1a1a2e;
 }
 
@@ -36,17 +36,19 @@ body {
 
 @layer utilities {
   .glass {
-    background: rgba(15, 15, 25, 0.58);
+    background: rgba(15, 15, 25, 0.62);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.07);
+    color: var(--text-primary);
   }
 
   .glass-strong {
-    background: rgba(12, 15, 24, 0.82);
+    background: rgba(12, 15, 24, 0.86);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.09);
+    color: var(--text-primary);
   }
 
   .accent-gradient {

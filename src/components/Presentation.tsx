@@ -7,9 +7,10 @@ import { useKeyboardNav } from '@/hooks/useKeyboardNav';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { Background } from '@/components/ui/Background';
 import { TitleSlide } from '@/components/slides/TitleSlide';
-import { ModuleDividerSlide } from '@/components/slides/ModuleDividerSlide';
+import { DividerSlide } from '@/components/slides/DividerSlide';
 import { StatSlide } from '@/components/slides/StatSlide';
 import { StorySlide } from '@/components/slides/StorySlide';
+import { QuoteSlide } from '@/components/slides/QuoteSlide';
 import { ListSlide } from '@/components/slides/ListSlide';
 import { InteractionSlide } from '@/components/slides/InteractionSlide';
 import { VisualizationSlide } from '@/components/slides/VisualizationSlide';
@@ -21,10 +22,13 @@ function SlideRenderer({ slide, isActive }: { slide: (typeof slides)[0]; isActiv
     case 'title':
       return <TitleSlide slide={slide} isActive={isActive} />;
     case 'module-divider':
-      return <ModuleDividerSlide slide={slide} isActive={isActive} />;
+      return <DividerSlide slide={slide} isActive={isActive} />;
     case 'stat':
       return <StatSlide slide={slide} isActive={isActive} />;
     case 'story':
+      if (slide.layout === 'quote-full' || slide.animation === 'typewriter') {
+        return <QuoteSlide slide={slide} isActive={isActive} />;
+      }
       return <StorySlide slide={slide} isActive={isActive} />;
     case 'list':
       return <ListSlide slide={slide} isActive={isActive} />;

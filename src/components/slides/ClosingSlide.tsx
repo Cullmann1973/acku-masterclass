@@ -18,29 +18,26 @@ export function ClosingSlide({ slide, isActive }: ClosingSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      // Line
+      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      const stage = containerRef.current!.querySelector('.closing-stage');
+      timeline.fromTo(
+        stage,
+        { opacity: 0, y: 20, scale: 0.96 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.66 },
+        0.08
+      );
+
       const line = containerRef.current!.querySelector('.closing-line');
-      gsap.fromTo(line, { scaleX: 0 }, {
-        scaleX: 1, duration: 0.8, ease: 'power2.inOut', delay: 0.2,
-      });
+      timeline.fromTo(line, { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.54 }, 0.2);
 
-      // Title
       const title = containerRef.current!.querySelector('.closing-title');
-      gsap.fromTo(title, { opacity: 0, y: 30 }, {
-        opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.4,
-      });
+      timeline.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.54 }, 0.3);
 
-      // Content
       const content = containerRef.current!.querySelector('.closing-content');
-      gsap.fromTo(content, { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.6, delay: 0.7,
-      });
+      timeline.fromTo(content, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.48 }, 0.4);
 
-      // Subtitle
       const subtitle = containerRef.current!.querySelector('.closing-subtitle');
-      gsap.fromTo(subtitle, { opacity: 0 }, {
-        opacity: 1, duration: 0.8, delay: 1,
-      });
+      timeline.fromTo(subtitle, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.42 }, 0.5);
     }, containerRef);
 
     return () => ctx.revert();
@@ -65,7 +62,7 @@ export function ClosingSlide({ slide, isActive }: ClosingSlideProps) {
         />
       </div>
 
-      <div className="text-center max-w-3xl relative z-10">
+      <div className="closing-stage text-center max-w-3xl relative z-10">
         {/* Decorative line */}
         <div className="closing-line origin-center h-[2px] w-16 mx-auto mb-8 bg-accent" />
 
