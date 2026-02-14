@@ -70,23 +70,6 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
           <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent font-bold">
             Your Turn
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-accent/35 bg-bg-primary/70 px-2 py-0.5">
-            <svg viewBox="0 0 20 20" className="w-4 h-4" aria-hidden="true">
-              <circle cx="10" cy="10" r="7" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.8" />
-              <circle
-                cx="10"
-                cy="10"
-                r="7"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeDasharray="44"
-                strokeDashoffset="12"
-                className="text-accent"
-              />
-            </svg>
-            <span className="font-mono text-[10px] text-accent">5:00</span>
-          </span>
         </div>
 
         {/* Title */}

@@ -193,7 +193,7 @@ export function Presentation() {
       >
         <div className="h-full flex items-center justify-center">
           <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-text-tertiary">
-            &lt;
+            {'\u2190'}
           </div>
         </div>
       </button>
@@ -204,7 +204,7 @@ export function Presentation() {
       >
         <div className="h-full flex items-center justify-center">
           <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-text-tertiary">
-            &gt;
+            {'\u2192'}
           </div>
         </div>
       </button>
@@ -223,12 +223,6 @@ export function Presentation() {
         total={slides.length}
         currentModule={currentModule}
       />
-
-      <div className="fixed bottom-5 right-6 z-40 rounded-full border border-white/15 bg-black/40 px-3 py-1.5 backdrop-blur-md">
-        <span className="font-mono text-xs text-text-primary">
-          {currentSlide + 1} / {slides.length}
-        </span>
-      </div>
 
       {/* Overview hint */}
       <div className="fixed top-4 right-4 z-40">
