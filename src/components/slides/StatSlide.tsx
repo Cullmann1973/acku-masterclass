@@ -18,31 +18,46 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      // Title
       const title = containerRef.current!.querySelector('.stat-title');
-      gsap.fromTo(title, { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.1,
-      });
-
-      // Stat cards
       const cards = containerRef.current!.querySelectorAll('.stat-card');
-      gsap.fromTo(cards, { opacity: 0, y: 30, scale: 0.95 }, {
-        opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(1.3)', delay: 0.3,
-      });
+      const numbers = containerRef.current!.querySelectorAll('[data-stat-number]');
+      const text = containerRef.current!.querySelectorAll('[data-stat-text]');
 
-      // Count up the numbers
+      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      timeline.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+      timeline.fromTo(
+        cards,
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.46, stagger: 0.12 },
+        '-=0.25'
+      );
+      timeline.fromTo(
+        numbers,
+        { opacity: 0, scale: 0.85, transformOrigin: '50% 50%' },
+        { opacity: 1, scale: 1, duration: 0.48, stagger: 0.12 },
+        '-=0.3'
+      );
+      timeline.fromTo(
+        text,
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.38, stagger: 0.1 },
+        '-=0.32'
+      );
+
+      // Count up the numbers after scale-in starts.
       const counters = containerRef.current!.querySelectorAll('[data-count]');
-      counters.forEach((el) => {
+      counters.forEach((el, idx) => {
         const target = parseFloat(el.getAttribute('data-count') || '0');
         const prefix = el.getAttribute('data-prefix') || '';
         const suffix = el.getAttribute('data-suffix') || '';
         const isDecimal = target % 1 !== 0;
 
+        (el as HTMLElement).textContent = `${prefix}0${suffix}`;
         const obj = { val: 0 };
         gsap.to(obj, {
           val: target,
-          duration: 2,
-          delay: 0.6,
+          duration: 1.6,
+          delay: 0.45 + idx * 0.12,
           ease: 'power2.out',
           onUpdate: () => {
             const display = isDecimal
@@ -56,15 +71,13 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
       // Notes/source
       const notes = containerRef.current!.querySelector('.stat-notes');
       if (notes) {
-        gsap.fromTo(notes, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 1.5 });
+        gsap.fromTo(notes, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, delay: 1.1, ease: 'power2.out' });
       }
 
-      // Content
+      // Supporting content
       const content = containerRef.current!.querySelector('.stat-content');
       if (content) {
-        gsap.fromTo(content, { opacity: 0, y: 10 }, {
-          opacity: 1, y: 0, duration: 0.5, delay: 1.2,
-        });
+        gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.42, delay: 0.95, ease: 'power2.out' });
       }
     }, containerRef);
 
@@ -93,7 +106,7 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
             className="stat-card glass rounded-xl p-6 md:p-8 text-center glow-accent"
           >
             {stat.prefix && stat.prefix !== '$' && stat.prefix !== '<$' && (
-              <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider block mb-2">
+              <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider block mb-2" data-stat-text>
                 {stat.prefix}
               </span>
             )}
@@ -102,10 +115,11 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
               data-count={stat.value}
               data-prefix={stat.prefix === '$' || stat.prefix === '<$' ? stat.prefix : ''}
               data-suffix={stat.suffix || ''}
+              data-stat-number
             >
               {stat.prefix === '$' || stat.prefix === '<$' ? stat.prefix : ''}{stat.value}{stat.suffix || ''}
             </div>
-            <p className="text-sm md:text-base text-text-secondary leading-relaxed">
+            <p className="text-sm md:text-base text-text-secondary leading-relaxed" data-stat-text>
               {stat.label}
             </p>
           </div>

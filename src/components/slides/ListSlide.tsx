@@ -25,7 +25,7 @@ function parseItem(item: string) {
   };
 }
 
-function runListAnimation(container: HTMLDivElement, animation: Slide['animation']) {
+function runListAnimation(container: HTMLDivElement, layout: Slide['layout']) {
   const titleAndMeta = container.querySelectorAll('[data-list-heading]');
   gsap.fromTo(
     titleAndMeta,
@@ -33,33 +33,38 @@ function runListAnimation(container: HTMLDivElement, animation: Slide['animation
     { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, delay: 0.08, ease: 'power2.out' }
   );
 
-  const items = container.querySelectorAll('[data-list-item]');
-  const content = container.querySelectorAll('[data-list-content]');
-  const all = [...Array.from(items), ...Array.from(content)];
+  if (layout === 'split' || layout === 'comparison') {
+    const left = container.querySelectorAll('[data-list-side="left"]');
+    const right = container.querySelectorAll('[data-list-side="right"]');
 
-  if (animation === 'scale-in') {
     gsap.fromTo(
-      all,
-      { opacity: 0, scale: 0.95, y: 12 },
-      { opacity: 1, scale: 1, y: 0, duration: 0.45, stagger: 0.08, delay: 0.28, ease: 'power2.out' }
+      left,
+      { opacity: 0, x: -40, y: 10 },
+      { opacity: 1, x: 0, y: 0, duration: 0.48, stagger: 0.12, delay: 0.2, ease: 'power2.out' }
     );
-    return;
-  }
 
-  if (animation === 'fade-up') {
     gsap.fromTo(
-      all,
+      right,
+      { opacity: 0, x: 40, y: 10 },
+      { opacity: 1, x: 0, y: 0, duration: 0.48, stagger: 0.12, delay: 0.24, ease: 'power2.out' }
+    );
+  } else {
+    const items = container.querySelectorAll('[data-list-stagger]');
+    gsap.fromTo(
+      items,
       { opacity: 0, y: 24 },
-      { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, delay: 0.25, ease: 'power2.out' }
+      { opacity: 1, y: 0, duration: 0.46, stagger: 0.12, delay: 0.22, ease: 'power2.out' }
     );
-    return;
   }
 
-  gsap.fromTo(
-    all,
-    { opacity: 0, x: -28 },
-    { opacity: 1, x: 0, duration: 0.45, stagger: 0.1, delay: 0.25, ease: 'power2.out' }
-  );
+  const content = container.querySelectorAll('[data-list-content]');
+  if (content.length) {
+    gsap.fromTo(
+      content,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.4, delay: 0.52, ease: 'power2.out' }
+    );
+  }
 }
 
 function ItemText({ item }: { item: string }) {
@@ -80,7 +85,6 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
   const layout = slide.layout ?? 'default';
-  const animation = slide.animation ?? (layout === 'icon-grid' ? 'scale-in' : 'stagger-left');
 
   const items = useMemo(() => slide.items ?? [], [slide.items]);
   const [leftColumn, rightColumn] = useMemo(() => splitInHalf(items), [items]);
@@ -90,11 +94,11 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      runListAnimation(containerRef.current!, animation);
+      runListAnimation(containerRef.current!, layout);
     }, containerRef);
 
     return () => ctx.revert();
-  }, [animation, isActive]);
+  }, [isActive, layout]);
 
   useEffect(() => {
     if (!isActive) hasAnimated.current = false;
@@ -132,14 +136,15 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
               {items.map((item, i) => (
                 <div
                   key={i}
-                  data-list-item
+                  data-list-stagger
+                  data-list-side="left"
                   className="glass rounded-lg px-4 md:px-5 py-3 border border-white/[0.05]"
                 >
                   <ItemText item={item} />
                 </div>
               ))}
             </div>
-            <div data-list-item>{imagePanel}</div>
+            <div data-list-stagger data-list-side="right">{imagePanel}</div>
           </div>
         )}
 
@@ -147,18 +152,32 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
             <div className="glass-strong rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
               {leftColumn.map((item, i) => (
-                <div key={i} data-list-item className="border border-white/[0.05] rounded-lg px-4 py-3">
+                <div
+                  key={i}
+                  data-list-stagger
+                  data-list-side="left"
+                  className="border border-white/[0.05] rounded-lg px-4 py-3"
+                >
                   <ItemText item={item} />
                 </div>
               ))}
             </div>
             <div className="glass-strong rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
               {rightColumn.map((item, i) => (
-                <div key={i} data-list-item className="border border-white/[0.05] rounded-lg px-4 py-3">
+                <div
+                  key={i}
+                  data-list-stagger
+                  data-list-side="right"
+                  className="border border-white/[0.05] rounded-lg px-4 py-3"
+                >
                   <ItemText item={item} />
                 </div>
               ))}
-              {rightColumn.length === 0 && imagePanel}
+              {rightColumn.length === 0 && (
+                <div data-list-stagger data-list-side="right">
+                  {imagePanel}
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -168,7 +187,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
             {items.map((item, i) => (
               <div
                 key={i}
-                data-list-item
+                data-list-stagger
                 className="glass rounded-xl border border-white/[0.06] p-4 md:p-5 min-h-[145px]"
               >
                 <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center mb-3">
@@ -178,7 +197,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
               </div>
             ))}
             {imagePanel && (
-              <div data-list-item className="md:col-span-2 lg:col-span-1">
+              <div data-list-stagger className="md:col-span-2 lg:col-span-1">
                 {imagePanel}
               </div>
             )}
@@ -190,7 +209,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
             {items.map((item, i) => (
               <div
                 key={i}
-                data-list-item
+                data-list-stagger
                 className="glass rounded-lg px-5 py-3 border border-white/[0.04] transition-colors hover:border-white/10"
               >
                 <ItemText item={item} />

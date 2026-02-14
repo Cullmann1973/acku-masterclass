@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { slides } from '@/lib/slideData';
 import { useKeyboardNav } from '@/hooks/useKeyboardNav';
@@ -50,49 +50,104 @@ export function Presentation() {
   const [showOverview, setShowOverview] = useState(false);
   const slideContainerRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const transitionContextRef = useRef<gsap.Context | null>(null);
+  const awaitingEnterRef = useRef(false);
 
   const currentSlideData = slides[currentSlide];
   const currentModule = currentSlideData?.module;
 
+  useEffect(() => {
+    const previousDefaults = { ...gsap.defaults() };
+    gsap.defaults({ ...previousDefaults, ease: 'power2.out' });
+    transitionContextRef.current = gsap.context(() => {}, slideContainerRef);
+
+    return () => {
+      transitionContextRef.current?.revert();
+      gsap.defaults(previousDefaults);
+    };
+  }, []);
+
   const goToSlide = useCallback((index: number) => {
-    if (index < 0 || index >= slides.length || isTransitioning) return;
+    if (index < 0 || index >= slides.length || isTransitioning || index === currentSlide) return;
 
     setIsTransitioning(true);
     const direction = index > currentSlide ? 1 : -1;
 
-    // Exit animation
-    if (slideContainerRef.current) {
-      gsap.to(slideContainerRef.current, {
-        opacity: 0,
-        x: direction > 0 ? -40 : 40,
-        duration: 0.25,
-        ease: 'power2.in',
-        onComplete: () => {
-          if (slideContainerRef.current) {
-            // Keep the frame hidden while React swaps slide content.
-            gsap.set(slideContainerRef.current, { opacity: 0, x: direction > 0 ? 40 : -40 });
-          }
-          setCurrentSlide(index);
-          requestAnimationFrame(() => {
-            if (!slideContainerRef.current) {
-              setIsTransitioning(false);
-              return;
-            }
-            gsap.to(slideContainerRef.current, {
-              opacity: 1,
-              x: 0,
-              duration: 0.35,
-              ease: 'power2.out',
-              onComplete: () => setIsTransitioning(false),
-            });
-          });
-        },
-      });
-    } else {
+    const runTransition = (fn: () => void) => {
+      if (transitionContextRef.current) {
+        transitionContextRef.current.add(fn);
+        return;
+      }
+      fn();
+    };
+
+    if (!slideContainerRef.current) {
       setCurrentSlide(index);
       setIsTransitioning(false);
+      return;
     }
+
+    runTransition(() => {
+      const container = slideContainerRef.current;
+      if (!container) {
+        setCurrentSlide(index);
+        setIsTransitioning(false);
+        return;
+      }
+
+      gsap.killTweensOf(container);
+      gsap.to(container, {
+        opacity: 0,
+        x: direction > 0 ? -40 : 40,
+        duration: 0.24,
+        ease: 'power2.in',
+        onComplete: () => {
+          if (!slideContainerRef.current) {
+            setCurrentSlide(index);
+            setIsTransitioning(false);
+            return;
+          }
+
+          // Critical flash fix: hide incoming frame before React swaps content.
+          gsap.set(slideContainerRef.current, {
+            opacity: 0,
+            x: direction > 0 ? 40 : -40,
+          });
+          awaitingEnterRef.current = true;
+          setCurrentSlide(index);
+        },
+      });
+    });
   }, [currentSlide, isTransitioning]);
+
+  useLayoutEffect(() => {
+    if (!awaitingEnterRef.current || !slideContainerRef.current) return;
+    awaitingEnterRef.current = false;
+
+    const runEnter = () => {
+      const container = slideContainerRef.current;
+      if (!container) {
+        setIsTransitioning(false);
+        return;
+      }
+
+      gsap.killTweensOf(container);
+      gsap.to(container, {
+        opacity: 1,
+        x: 0,
+        duration: 0.34,
+        ease: 'power2.out',
+        onComplete: () => setIsTransitioning(false),
+      });
+    };
+
+    if (transitionContextRef.current) {
+      transitionContextRef.current.add(runEnter);
+      return;
+    }
+
+    runEnter();
+  }, [currentSlide]);
 
   const onNext = useCallback(() => goToSlide(currentSlide + 1), [currentSlide, goToSlide]);
   const onPrev = useCallback(() => goToSlide(currentSlide - 1), [currentSlide, goToSlide]);
@@ -226,7 +281,7 @@ export function Presentation() {
               ref={slideContainerRef}
               className="presentation-slide relative z-10 w-full h-full"
             >
-              <SlideRenderer slide={currentSlideData} isActive={!isTransitioning} />
+              <SlideRenderer key={currentSlideData.id} slide={currentSlideData} isActive />
             </div>
           </div>
         </div>

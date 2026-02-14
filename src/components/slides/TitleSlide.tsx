@@ -18,38 +18,32 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      // Logo flicker
-      const logo = containerRef.current!.querySelector('.title-logo');
-      if (logo) {
-        gsap.fromTo(logo, { opacity: 0 }, {
-          opacity: 1, duration: 0.08, repeat: 5, yoyo: true,
-          onComplete: () => { gsap.to(logo, { opacity: 1, duration: 0.3 }); },
-        });
-      }
+      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-      // Title reveal
-      const title = containerRef.current!.querySelector('.title-main');
-      gsap.fromTo(title, { opacity: 0, y: 30 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5,
-      });
-
-      // Subtitle
-      const subtitle = containerRef.current!.querySelector('.title-subtitle');
-      gsap.fromTo(subtitle, { opacity: 0, y: 20 }, {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.8,
-      });
-
-      // Content
-      const content = containerRef.current!.querySelector('.title-content');
-      gsap.fromTo(content, { opacity: 0 }, {
-        opacity: 1, duration: 0.6, delay: 1.1,
-      });
-
-      // Decorative line
+      const stage = containerRef.current!.querySelector('.title-stage');
       const line = containerRef.current!.querySelector('.title-line');
-      gsap.fromTo(line, { scaleX: 0 }, {
-        scaleX: 1, duration: 0.8, ease: 'power2.inOut', delay: 0.4,
-      });
+      const logo = containerRef.current!.querySelector('.title-logo');
+      const title = containerRef.current!.querySelector('.title-main');
+      const subtitle = containerRef.current!.querySelector('.title-subtitle');
+      const content = containerRef.current!.querySelector('.title-content');
+
+      timeline.fromTo(
+        stage,
+        { opacity: 0, scale: 0.88, y: 20, transformOrigin: '50% 50%' },
+        { opacity: 1, scale: 1, y: 0, duration: 0.75 }
+      );
+
+      timeline.fromTo(
+        line,
+        { scaleX: 0, transformOrigin: '50% 50%' },
+        { scaleX: 1, duration: 0.55 },
+        '-=0.5'
+      );
+
+      timeline.fromTo(logo, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.32 }, '-=0.45');
+      timeline.fromTo(title, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.52 }, '-=0.35');
+      timeline.fromTo(subtitle, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3');
+      timeline.fromTo(content, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42 }, '-=0.22');
     }, containerRef);
 
     return () => ctx.revert();
@@ -63,7 +57,7 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
 
   return (
     <div ref={containerRef} className="h-full flex items-center justify-center px-8">
-      <div className="text-center max-w-4xl">
+      <div className="title-stage text-center max-w-4xl">
         {/* Logo */}
         <div className="title-logo mb-8">
           <span className="font-mono text-accent text-lg md:text-xl tracking-[0.3em] uppercase">
