@@ -11,6 +11,8 @@ interface UseKeyboardNavProps {
 }
 
 export function useKeyboardNav({
+  totalSlides,
+  onGoTo,
   onNext,
   onPrev,
 }: UseKeyboardNavProps) {
@@ -30,13 +32,15 @@ export function useKeyboardNav({
           break;
         case 'Home':
           e.preventDefault();
+          onGoTo(0);
           break;
         case 'End':
           e.preventDefault();
+          onGoTo(totalSlides - 1);
           break;
       }
     },
-    [onNext, onPrev]
+    [onGoTo, onNext, onPrev, totalSlides]
   );
 
   useEffect(() => {

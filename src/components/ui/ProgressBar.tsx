@@ -13,27 +13,22 @@ export function ProgressBar({ current, total, currentModule }: ProgressBarProps)
   const mod = currentModule ? modules.find(m => m.number === currentModule) : null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50">
-      <div className="flex items-center justify-between px-6 py-2">
-        <div className="flex items-center gap-3">
-          {mod && (
-            <span
-              className="text-xs font-mono uppercase tracking-widest"
-              style={{ color: mod.color }}
-            >
-              Module {mod.number}: {mod.title}
-            </span>
-          )}
-        </div>
-        <span className="text-xs font-mono text-text-tertiary">
-          {current + 1} / {total}
-        </span>
-      </div>
-      <div className="h-[2px] bg-white/5">
+    <div className="fixed top-0 left-0 right-0 z-50">
+      <div className="h-[3px] bg-white/8">
         <div
           className="h-full progress-bar"
           style={{ width: `${progress}%` }}
         />
+      </div>
+      <div className="px-5 py-2">
+        {mod && (
+          <span
+            className="text-[11px] font-mono uppercase tracking-[0.22em]"
+            style={{ color: mod.color }}
+          >
+            Module {mod.number}: {mod.title}
+          </span>
+        )}
       </div>
     </div>
   );

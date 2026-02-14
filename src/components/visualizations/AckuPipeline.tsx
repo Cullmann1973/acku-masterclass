@@ -7,7 +7,7 @@ const phases = [
   {
     name: 'LEARN',
     timeline: 'Weeks 1-4',
-    icon: '🔍',
+    icon: '01',
     color: '#00d4aa',
     outputs: 'Current-state assessment everyone agrees on',
     items: [
@@ -21,7 +21,7 @@ const phases = [
   {
     name: 'PLAN',
     timeline: 'Weeks 5-8',
-    icon: '📋',
+    icon: '02',
     color: '#00c4ba',
     outputs: 'Prioritized roadmap your CFO will approve',
     items: [
@@ -35,7 +35,7 @@ const phases = [
   {
     name: 'BUILD',
     timeline: 'Months 3-6',
-    icon: '🔧',
+    icon: '03',
     color: '#00b4ca',
     outputs: 'One deployed use case with measurable impact',
     items: [
@@ -49,7 +49,7 @@ const phases = [
   {
     name: 'SCALE',
     timeline: 'Months 6-18',
-    icon: '📈',
+    icon: '04',
     color: '#00a4d4',
     outputs: 'Self-sustaining AI program',
     items: [
@@ -118,7 +118,7 @@ export function AckuPipeline({ isActive }: AckuPipelineProps) {
               {/* Arrow between phases */}
               {i < phases.length - 1 && (
                 <div className="pipeline-arrow absolute -right-4 top-6 text-text-tertiary text-lg z-10">
-                  →
+                  {'\u2192'}
                 </div>
               )}
               <div className="pipeline-phase glass rounded-xl p-4 h-full">
@@ -174,11 +174,11 @@ export function AckuPipeline({ isActive }: AckuPipelineProps) {
                 ))}
               </ul>
               <p className="text-xs font-mono" style={{ color: phase.color, opacity: 0.7 }}>
-                → {phase.outputs}
+                {'\u2192'} {phase.outputs}
               </p>
             </div>
             {i < phases.length - 1 && (
-              <div className="pipeline-arrow flex justify-center py-1 text-text-tertiary">↓</div>
+              <div className="pipeline-arrow flex justify-center py-1 text-text-tertiary">{'\u2193'}</div>
             )}
           </div>
         ))}
