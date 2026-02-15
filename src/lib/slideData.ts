@@ -794,6 +794,68 @@ export const slides: Slide[] = [
   },
 
   {
+    id: 'shadow-ai-stats',
+    type: 'stat',
+    module: 5,
+    title: 'Shadow AI: The Risk You Don\'t See',
+    stats: [
+      { value: '28', suffix: '%', label: 'of workers use GenAI at work, more than half without employer approval' },
+      { value: '78', suffix: '%', label: 'of AI users are bringing their own AI tools to work (BYOAI)' },
+      { value: '65', suffix: '%', label: 'of organizations don\'t have formal policies governing employee AI use' },
+    ],
+    notes: 'Sources: Salesforce, Microsoft, KPMG',
+  },
+
+  {
+    id: 'shadow-ai-examples',
+    type: 'list',
+    module: 5,
+    title: 'What Shadow AI Looks Like in Your Organization',
+    items: [
+      'Your quality engineer pastes deviation data into ChatGPT on their personal phone to draft investigation reports',
+      'Your supply chain planner uploads demand forecasts to Claude on their personal laptop for S&OP scenarios',
+      'Your regulatory affairs specialist feeds draft submission language into Gemini to refine it',
+      'Your HR team screens resumes with AI without telling anyone - a legal and compliance exposure you don\'t know exists',
+    ],
+    content: 'None of these people are malicious. They found a tool that makes them better at their jobs. The problem is you haven\'t given them an approved alternative.',
+    layout: 'icon-grid',
+    animation: 'stagger-left',
+    atmosphereImage: atmosphereImages.ai,
+    atmosphereAlt: 'AI tools being used informally',
+  },
+
+  {
+    id: 'shadow-ai-paradox',
+    type: 'story',
+    module: 5,
+    title: 'The Shadow AI Paradox',
+    quote: 'Move fast with governance, training, and approved tools: you get controlled AI use with guardrails and audit trails. Move slow, waiting for "the right time" or "more clarity": your people go to ChatGPT on their phones. They solve today\'s problems with zero governance. And you have zero visibility into what data is leaving your organization.',
+    attribution: 'The irony is brutal: the leaders who think they\'re being cautious by delaying AI adoption are actually taking on MORE risk than the leaders who move aggressively with proper controls.',
+    layout: 'quote-full',
+    animation: 'typewriter',
+    atmosphereImage: atmosphereImages.strategy,
+    atmosphereAlt: 'Strategic risk assessment',
+  },
+
+  {
+    id: 'shadow-ai-response',
+    type: 'list',
+    module: 5,
+    title: 'The 3-Step Response',
+    subtitle: 'You can\'t stop Shadow AI by blocking tools. You stop it by being faster than your people need you to be.',
+    items: [
+      'Discover: Find out what\'s already happening. Anonymous survey, honest conversations, IT audit of network traffic. You can\'t govern what you can\'t see.',
+      'Provide: Get approved tools in people\'s hands fast. ChatGPT Enterprise or Claude with business terms and data protections. Don\'t let perfect governance be the enemy of controlled access.',
+      'Govern: Build the policies, training, and guardrails around the tools people are actually using. Make compliance easy, not bureaucratic.',
+    ],
+    content: 'We got an 80% governance framework in place and launched with approved tools in 60 days. We iterated as we learned. Shadow AI dropped dramatically.',
+    layout: 'comparison',
+    animation: 'scale-in',
+    atmosphereImage: atmosphereImages.team,
+    atmosphereAlt: 'Team implementing governance',
+  },
+
+  {
     id: 'what-it-means',
     type: 'list',
     module: 5,
