@@ -8,9 +8,7 @@ const quadrants = [
     id: 'quick-wins',
     label: 'Quick Wins',
     sublabel: 'Start Here',
-    position: 'top-left',
     color: '#00d4aa',
-    bgColor: 'rgba(0, 212, 170, 0.08)',
     items: [
       'Document summarization',
       'Meeting note automation',
@@ -23,9 +21,7 @@ const quadrants = [
     id: 'strategic-bets',
     label: 'Strategic Bets',
     sublabel: 'Plan For These',
-    position: 'top-right',
-    color: '#00a4d4',
-    bgColor: 'rgba(0, 164, 212, 0.08)',
+    color: '#6366f1',
     items: [
       'Predictive quality',
       'Demand forecasting',
@@ -38,9 +34,7 @@ const quadrants = [
     id: 'time-fillers',
     label: 'Time Fillers',
     sublabel: 'Fine for Learning',
-    position: 'bottom-left',
-    color: '#b39f87',
-    bgColor: 'rgba(179, 159, 135, 0.07)',
+    color: '#71717a',
     items: [
       'Low-impact experiments',
       'Learning exercises',
@@ -50,9 +44,7 @@ const quadrants = [
     id: 'avoid',
     label: 'Avoid',
     sublabel: 'Don\'t Start Here',
-    position: 'bottom-right',
-    color: '#ff4444',
-    bgColor: 'rgba(255, 68, 68, 0.05)',
+    color: '#ef4444',
     items: [
       'Custom models when off-the-shelf works',
       'AI for AI\'s sake',
@@ -73,26 +65,18 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
     if (!isActive || !containerRef.current || hasAnimated.current) return;
     hasAnimated.current = true;
 
-    // Animate axes
-    const axes = containerRef.current.querySelectorAll('.matrix-axis');
-    gsap.fromTo(axes, { scaleX: 0 }, {
-      scaleX: 1, duration: 0.6, ease: 'power2.out', delay: 0.2,
-    });
-
-    // Animate quadrants
     const quads = containerRef.current.querySelectorAll('.matrix-quad');
-    gsap.fromTo(quads, { opacity: 0, scale: 0.8 }, {
-      opacity: 1, scale: 1, duration: 0.5, stagger: 0.15, ease: 'back.out(1.2)', delay: 0.4,
+    gsap.fromTo(quads, { opacity: 0, scale: 0.92, y: 15 }, {
+      opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out', delay: 0.3,
     });
 
-    // Animate items within quadrants
     const items = containerRef.current.querySelectorAll('.matrix-item');
-    gsap.fromTo(items, { opacity: 0, x: -10 }, {
-      opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out', delay: 0.8,
+    gsap.fromTo(items, { opacity: 0, x: -8 }, {
+      opacity: 1, x: 0, duration: 0.3, stagger: 0.04, ease: 'power2.out', delay: 0.7,
     });
 
     return () => {
-      gsap.killTweensOf([axes, quads, items]);
+      gsap.killTweensOf([quads, items]);
     };
   }, [isActive]);
 
@@ -103,20 +87,20 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
       <div className="relative">
-        {/* Axis labels - hidden on mobile */}
-        <div className="hidden md:flex justify-between mb-2 px-2">
-          <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Low Effort</span>
-          <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">High Effort</span>
+        {/* Axis labels */}
+        <div className="hidden md:flex justify-between mb-3 px-1">
+          <span className="text-[10px] font-mono text-text-muted uppercase tracking-[0.2em]">Low Effort</span>
+          <span className="text-[10px] font-mono text-text-muted uppercase tracking-[0.2em]">High Effort</span>
         </div>
 
-        {/* Matrix grid - single column on mobile, 2 cols on desktop */}
+        {/* Matrix grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 relative">
-          {/* Vertical axis label - hidden on mobile */}
-          <div className="hidden md:flex absolute -left-8 top-0 bottom-0 flex-col justify-between items-center py-2">
-            <span className="text-xs font-mono text-text-tertiary writing-mode-vertical rotate-180" style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}>
+          {/* Vertical axis label */}
+          <div className="hidden md:flex absolute -left-10 top-0 bottom-0 flex-col justify-between items-center py-4">
+            <span className="text-[10px] font-mono text-text-muted tracking-[0.15em]" style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}>
               High Impact
             </span>
-            <span className="text-xs font-mono text-text-tertiary" style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}>
+            <span className="text-[10px] font-mono text-text-muted tracking-[0.15em]" style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}>
               Low Impact
             </span>
           </div>
@@ -124,19 +108,23 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
           {quadrants.map((q) => (
             <div
               key={q.id}
-              className="matrix-quad rounded-xl p-4 border border-white/5 min-h-0 md:min-h-[160px] transition-all hover:border-white/10"
-              style={{ background: q.bgColor }}
+              className="matrix-quad rounded-xl p-5 border min-h-0 md:min-h-[160px] transition-all hover:border-white/[0.1] group"
+              style={{
+                borderColor: `${q.color}12`,
+                background: `linear-gradient(135deg, ${q.color}06 0%, transparent 60%)`,
+              }}
             >
-              <div className="flex items-baseline gap-2 mb-3">
-                <h4 className="font-serif text-base font-bold" style={{ color: q.color }}>
+              <div className="flex items-baseline gap-2.5 mb-4">
+                {/* Color indicator dot */}
+                <div className="w-2 h-2 rounded-full shrink-0" style={{ background: q.color }} />
+                <h4 className="font-serif text-base font-bold text-text-primary">
                   {q.label}
                 </h4>
-                <span className="text-xs font-mono text-text-tertiary">{q.sublabel}</span>
+                <span className="text-[10px] font-mono text-text-muted tracking-wide">{q.sublabel}</span>
               </div>
-              <ul className="space-y-1.5">
+              <ul className="space-y-2 pl-[18px]">
                 {q.items.map((item, i) => (
-                  <li key={i} className="matrix-item flex items-start gap-2 text-[15px] md:text-sm text-text-secondary">
-                    <span className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: q.color }} />
+                  <li key={i} className="matrix-item text-[15px] md:text-sm text-text-secondary font-light leading-relaxed">
                     {item}
                   </li>
                 ))}

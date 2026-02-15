@@ -9,42 +9,44 @@ const levels = [
     name: 'Unaware',
     description: 'No formal AI discussion at leadership level',
     detail: '"We have bigger priorities right now"',
-    bgColor: 'rgba(255,255,255,0.03)',
-    desktopWidth: '100%',
+    color: '#3f3f46',
+    accentColor: '#71717a',
   },
   {
     level: 2,
     name: 'Experimenting',
     description: 'A few enthusiasts, no coordination',
     detail: '60-70% of manufacturing companies',
-    bgColor: 'rgba(0,212,170,0.06)',
-    desktopWidth: '85%',
+    color: '#00d4aa',
+    accentColor: '#00d4aa',
   },
   {
     level: 3,
     name: 'Implementing',
     description: 'Dedicated budget, multiple use cases in production',
     detail: '15-20% of companies',
-    bgColor: 'rgba(0,212,170,0.10)',
-    desktopWidth: '68%',
+    color: '#00c4ba',
+    accentColor: '#00c4ba',
   },
   {
     level: 4,
     name: 'Scaling',
     description: 'AI is part of how the business operates',
     detail: 'Less than 5% of companies',
-    bgColor: 'rgba(0,212,170,0.16)',
-    desktopWidth: '50%',
+    color: '#00a4d4',
+    accentColor: '#00a4d4',
   },
   {
     level: 5,
     name: 'Transforming',
     description: 'AI fundamentally changes how the business competes',
     detail: 'Almost nobody is here yet',
-    bgColor: 'rgba(0,212,170,0.22)',
-    desktopWidth: '35%',
+    color: '#6366f1',
+    accentColor: '#6366f1',
   },
 ];
+
+const desktopWidths = ['100%', '84%', '66%', '48%', '32%'];
 
 interface MaturityModelProps {
   isActive: boolean;
@@ -61,14 +63,14 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
     const steps = containerRef.current.querySelectorAll('.maturity-step');
     gsap.fromTo(
       steps,
-      { opacity: 0, x: -40, scaleX: 0.3 },
+      { opacity: 0, x: -30, scaleX: 0.4 },
       {
         opacity: 1,
         x: 0,
         scaleX: 1,
-        duration: 0.5,
-        stagger: 0.15,
-        ease: 'power2.out',
+        duration: 0.55,
+        stagger: 0.12,
+        ease: 'power3.out',
         delay: 0.3,
       }
     );
@@ -84,35 +86,41 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
 
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
-      <div className="flex flex-col-reverse gap-3">
-        {levels.map((level) => (
+      <div className="flex flex-col-reverse gap-2.5">
+        {levels.map((level, i) => (
           <div
             key={level.level}
             className="maturity-step origin-left w-full md:w-auto"
-            style={{ width: undefined }}
           >
-            {/* Use a wrapper div for desktop pyramid width */}
-            <div className="hidden md:block" style={{ width: level.desktopWidth }}>
+            {/* Desktop: pyramid card */}
+            <div className="hidden md:block" style={{ width: desktopWidths[i] }}>
               <div
-                className="relative rounded-lg px-5 py-4 border border-white/[0.08] transition-all hover:border-white/15"
+                className="relative rounded-lg px-5 py-4 border transition-all hover:border-white/[0.12] group"
                 style={{
-                  background: level.bgColor,
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
+                  borderColor: `${level.accentColor}15`,
+                  background: `linear-gradient(135deg, ${level.accentColor}08 0%, transparent 70%)`,
                 }}
               >
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span className="font-mono text-2xl font-bold text-accent opacity-60">
+                {/* Left accent bar */}
+                <div
+                  className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full"
+                  style={{ background: `${level.accentColor}60` }}
+                />
+                <div className="flex items-baseline gap-3 mb-1 pl-3">
+                  <span
+                    className="font-mono text-2xl font-bold tracking-tighter"
+                    style={{ color: level.accentColor, opacity: 0.7 }}
+                  >
                     {level.level}
                   </span>
                   <span className="font-serif text-lg text-text-primary font-semibold">
                     {level.name}
                   </span>
                 </div>
-                <p className="text-sm text-text-secondary leading-relaxed">
+                <p className="text-sm text-text-secondary leading-relaxed pl-3 font-light">
                   {level.description}
                 </p>
-                <p className="text-xs font-mono text-text-tertiary mt-1">
+                <p className="text-[11px] font-mono text-text-tertiary mt-1 pl-3 tracking-wide">
                   {level.detail}
                 </p>
               </div>
@@ -120,25 +128,31 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
             {/* Mobile: full-width card */}
             <div className="md:hidden w-full">
               <div
-                className="relative rounded-lg px-4 py-4 border border-white/[0.08] transition-all"
+                className="relative rounded-lg px-4 py-4 border transition-all"
                 style={{
-                  background: level.bgColor,
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
+                  borderColor: `${level.accentColor}15`,
+                  background: `linear-gradient(135deg, ${level.accentColor}08 0%, transparent 70%)`,
                 }}
               >
-                <div className="flex items-baseline gap-3 mb-1">
-                  <span className="font-mono text-xl font-bold text-accent opacity-60">
+                <div
+                  className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full"
+                  style={{ background: `${level.accentColor}50` }}
+                />
+                <div className="flex items-baseline gap-3 mb-1 pl-3">
+                  <span
+                    className="font-mono text-xl font-bold tracking-tighter"
+                    style={{ color: level.accentColor, opacity: 0.7 }}
+                  >
                     {level.level}
                   </span>
                   <span className="font-serif text-base text-text-primary font-semibold">
                     {level.name}
                   </span>
                 </div>
-                <p className="text-[15px] text-text-secondary leading-relaxed">
+                <p className="text-[15px] text-text-secondary leading-relaxed pl-3 font-light">
                   {level.description}
                 </p>
-                <p className="text-sm font-mono text-text-tertiary mt-1">
+                <p className="text-sm font-mono text-text-tertiary mt-1 pl-3">
                   {level.detail}
                 </p>
               </div>

@@ -22,31 +22,32 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
       const quote = containerRef.current?.querySelector('.quote-body');
       const tails = containerRef.current?.querySelectorAll('.quote-tail');
 
-      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       if (heading) {
-        timeline.fromTo(heading, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45 }, 0.08);
+        timeline.fromTo(heading, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, 0.1);
       }
 
       if (quote) {
         timeline.fromTo(
           quote,
-          { opacity: 0, y: 20, textShadow: '0 0 0 rgba(255,255,255,0)' },
-          { opacity: 0.92, y: 0, duration: 0.46 },
-          0.12
+          { opacity: 0, y: 24 },
+          { opacity: 0.95, y: 0, duration: 0.7 },
+          0.15
         );
 
-        const flickers = [0.03, 0.04, 0.02, 0.05];
+        // Refined neon flicker effect
+        const flickers = [0.04, 0.05, 0.03, 0.06];
         flickers.forEach((duration, index) => {
           const dim = index % 2 === 0;
           timeline.to(
             quote,
             {
-              opacity: dim ? 0.3 : 1,
+              opacity: dim ? 0.25 : 1,
               duration,
               textShadow: dim
-                ? '0 0 16px rgba(255,255,255,0.7)'
-                : '0 0 28px rgba(255,255,255,0.95)',
+                ? '0 0 20px rgba(255,255,255,0.5)'
+                : '0 0 30px rgba(255,255,255,0.8)',
             },
             '>'
           );
@@ -56,8 +57,8 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
           quote,
           {
             opacity: 1,
-            duration: 0.25,
-            textShadow: '0 0 14px rgba(255,255,255,0.38)',
+            duration: 0.3,
+            textShadow: '0 0 16px rgba(255,255,255,0.2)',
           },
           '>'
         );
@@ -66,9 +67,9 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
       if (tails && tails.length) {
         timeline.fromTo(
           tails,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.45, stagger: 0.1 },
-          '>-0.05'
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+          '>-0.1'
         );
       }
     }, containerRef);
@@ -80,11 +81,9 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
     if (!isActive) hasAnimated.current = false;
   }, [isActive]);
 
-  const hasImage = !!slide.atmosphereImage;
-
   return (
-    <div ref={containerRef} className="h-full min-h-full px-5 md:px-10 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
-      {hasImage && (
+    <div ref={containerRef} className="h-full min-h-full px-6 md:px-16 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
+      {slide.atmosphereImage && (
         <>
           <img
             src={slide.atmosphereImage}
@@ -92,16 +91,14 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
-          {/* Heavy triple-layer overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/65 to-black/90" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/55" />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/70 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/60" />
         </>
       )}
 
-      <div className={`relative z-10 w-full max-w-5xl text-center ${hasImage ? 'text-shadow-image' : ''}`}>
+      <div className={`relative z-10 w-full max-w-4xl text-center ${slide.atmosphereImage ? 'text-shadow-image' : ''}`}>
         {slide.title && (
-          <p className="quote-heading font-mono text-[13px] md:text-sm tracking-[0.3em] uppercase text-accent mb-10 font-medium">
+          <p className="quote-heading font-mono text-label tracking-[0.3em] uppercase text-accent mb-10 opacity-80">
             {slide.title}
           </p>
         )}
@@ -111,13 +108,13 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
         </blockquote>
 
         {slide.attribution && (
-          <p className="quote-tail text-[15px] md:text-base text-text-secondary">
+          <p className="quote-tail text-sm md:text-base text-text-secondary font-light">
             {slide.attribution}
           </p>
         )}
 
         {slide.content && (
-          <p className="quote-tail text-[15px] md:text-lg text-text-secondary max-w-3xl mx-auto mt-6 leading-relaxed">
+          <p className="quote-tail text-sm md:text-base text-text-secondary max-w-2xl mx-auto mt-6 leading-relaxed font-light">
             {slide.content}
           </p>
         )}

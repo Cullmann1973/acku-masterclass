@@ -20,7 +20,7 @@ const tiers = [
     tier: 'Tier 2',
     label: 'Plan For Next',
     sublabel: 'High Impact, Moderate Feasibility',
-    color: '#00a4d4',
+    color: '#6366f1',
     items: [
       'Predictive quality analytics',
       'Supplier risk assessment',
@@ -32,7 +32,7 @@ const tiers = [
     tier: 'Tier 3',
     label: 'Future State',
     sublabel: 'High Impact, Lower Feasibility',
-    color: '#b39f87',
+    color: '#71717a',
     items: [
       'Real-time process optimization',
       'Computer vision for inspection',
@@ -55,13 +55,13 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
     hasAnimated.current = true;
 
     const cards = containerRef.current.querySelectorAll('.usecase-tier');
-    gsap.fromTo(cards, { opacity: 0, y: 25 }, {
-      opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: 'power2.out', delay: 0.3,
+    gsap.fromTo(cards, { opacity: 0, y: 22 }, {
+      opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power3.out', delay: 0.3,
     });
 
     const items = containerRef.current.querySelectorAll('.usecase-item');
-    gsap.fromTo(items, { opacity: 0, x: -15 }, {
-      opacity: 1, x: 0, duration: 0.3, stagger: 0.06, ease: 'power2.out', delay: 0.6,
+    gsap.fromTo(items, { opacity: 0, x: -12 }, {
+      opacity: 1, x: 0, duration: 0.3, stagger: 0.05, ease: 'power2.out', delay: 0.6,
     });
 
     return () => {
@@ -75,28 +75,32 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
 
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {tiers.map((tier) => (
           <div
             key={tier.tier}
-            className="usecase-tier glass rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all"
+            className="usecase-tier rounded-xl p-5 md:p-6 border transition-all hover:border-white/[0.1]"
+            style={{
+              borderColor: `${tier.color}12`,
+              background: `linear-gradient(180deg, ${tier.color}06 0%, transparent 60%)`,
+            }}
           >
-            <div className="flex items-baseline gap-2 mb-1">
-              <span className="font-mono text-xs font-bold" style={{ color: tier.color }}>
+            <div className="flex items-baseline gap-2.5 mb-1.5">
+              <span className="font-mono text-[10px] font-bold tracking-[0.15em]" style={{ color: tier.color }}>
                 {tier.tier}
               </span>
               <span className="font-serif text-base font-bold text-text-primary">
                 {tier.label}
               </span>
             </div>
-            <p className="text-sm md:text-xs text-text-tertiary mb-4">{tier.sublabel}</p>
+            <p className="text-[10px] text-text-muted mb-5 tracking-wide">{tier.sublabel}</p>
 
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {tier.items.map((item, i) => (
-                <li key={i} className="usecase-item flex items-start gap-2 text-[15px] md:text-sm text-text-secondary">
+                <li key={i} className="usecase-item flex items-start gap-2.5 text-sm text-text-secondary font-light">
                   <span
-                    className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
-                    style={{ background: tier.color }}
+                    className="w-1 h-1 rounded-full mt-2 shrink-0"
+                    style={{ background: tier.color, opacity: 0.6 }}
                   />
                   {item}
                 </li>
@@ -106,13 +110,16 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
         ))}
       </div>
 
-      <div className="text-center mt-6 glass rounded-lg px-4 py-3 mx-auto max-w-lg">
-        <p className="text-sm md:text-xs font-mono text-text-secondary">
-          Score: <span className="text-accent">Impact (1-5)</span> x <span className="text-accent">Feasibility (1-5)</span> = Priority
-        </p>
-        <p className="text-sm md:text-xs text-text-tertiary mt-1">
-          Above 15 = shortlist. Above 20 = start here.
-        </p>
+      {/* Scoring formula - refined */}
+      <div className="text-center mt-8">
+        <div className="inline-block rounded-xl px-6 py-3 border border-white/[0.05] bg-white/[0.015]">
+          <p className="text-xs font-mono text-text-secondary">
+            Score: <span className="text-accent">Impact (1-5)</span> x <span className="text-accent">Feasibility (1-5)</span> = Priority
+          </p>
+          <p className="text-[10px] text-text-muted mt-1 tracking-wide">
+            Above 15 = shortlist. Above 20 = start here.
+          </p>
+        </div>
       </div>
     </div>
   );

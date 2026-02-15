@@ -18,7 +18,7 @@ const tiers = [
     name: 'Power Users',
     percentage: '15%',
     description: 'of your workforce',
-    color: '#00a4d4',
+    color: '#6366f1',
     training: '20-40 hours, hands-on workshops',
     skills: ['Customize AI tools for their function', 'Build simple automations', 'Train and support Tier 1'],
   },
@@ -27,18 +27,11 @@ const tiers = [
     name: 'AI Builders',
     percentage: '5%',
     description: 'of your workforce',
-    color: '#0094e4',
+    color: '#a78bfa',
     training: 'Formal programs, certifications',
     skills: ['Develop and maintain AI solutions', 'Integrate AI with existing systems', 'Evaluate vendors and tools'],
   },
 ];
-
-// Desktop pyramid widths (reversed order: Tier 3 on top at 50%, Tier 1 at bottom at 100%)
-const desktopWidths: Record<string, string> = {
-  'Tier 3': 'md:w-1/2',
-  'Tier 2': 'md:w-3/4',
-  'Tier 1': 'md:w-full',
-};
 
 interface CapabilityTiersProps {
   isActive: boolean;
@@ -53,8 +46,8 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
     hasAnimated.current = true;
 
     const cards = containerRef.current.querySelectorAll('.cap-tier');
-    gsap.fromTo(cards, { opacity: 0, y: 25, scale: 0.95 }, {
-      opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.2, ease: 'back.out(1.3)', delay: 0.3,
+    gsap.fromTo(cards, { opacity: 0, y: 22, scale: 0.97 }, {
+      opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.15, ease: 'power3.out', delay: 0.3,
     });
 
     return () => {
@@ -73,16 +66,18 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
         {[...tiers].reverse().map((tier) => (
           <div
             key={tier.tier}
-            className={`cap-tier glass rounded-xl p-4 transition-all hover:border-white/10 w-full ${desktopWidths[tier.tier] || 'md:w-full'}`}
+            className="cap-tier rounded-xl p-5 transition-all hover:border-white/[0.1] border"
             style={{
-              borderColor: `${tier.color}15`,
-              borderWidth: 1,
+              width: tier.tier === 'Tier 3' ? '50%' : tier.tier === 'Tier 2' ? '75%' : '100%',
+              minWidth: '280px',
+              borderColor: `${tier.color}12`,
+              background: `linear-gradient(135deg, ${tier.color}06 0%, transparent 50%)`,
             }}
           >
-            <div className="flex flex-col md:flex-row md:items-center gap-3">
-              <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <div className="flex items-center gap-4 flex-shrink-0">
                 <div
-                  className="font-mono text-2xl md:text-3xl font-bold"
+                  className="font-mono text-3xl font-bold tracking-tighter"
                   style={{ color: tier.color }}
                 >
                   {tier.percentage}
@@ -91,22 +86,22 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
                   <h4 className="font-serif text-base font-bold text-text-primary">
                     {tier.name}
                   </h4>
-                  <p className="text-sm md:text-xs text-text-tertiary">{tier.description}</p>
+                  <p className="text-[10px] text-text-muted tracking-wide">{tier.description}</p>
                 </div>
               </div>
 
-              <div className="md:ml-auto flex flex-col md:flex-row gap-3">
-                <ul className="space-y-0.5">
+              <div className="md:ml-auto flex flex-col md:flex-row gap-4">
+                <ul className="space-y-1">
                   {tier.skills.map((skill, i) => (
-                    <li key={i} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
-                      <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0" style={{ background: tier.color }} />
+                    <li key={i} className="text-xs text-text-secondary flex items-start gap-2 font-light">
+                      <span className="w-0.5 h-0.5 rounded-full mt-2 shrink-0 opacity-50" style={{ background: tier.color }} />
                       {skill}
                     </li>
                   ))}
                 </ul>
-                <div className="md:ml-4 md:pl-4 md:border-l md:border-white/5">
-                  <span className="text-sm md:text-xs font-mono text-text-tertiary uppercase tracking-wider">Training</span>
-                  <p className="text-sm md:text-xs mt-0.5" style={{ color: tier.color }}>{tier.training}</p>
+                <div className="md:ml-4 md:pl-4 md:border-l md:border-white/[0.05]">
+                  <span className="text-[9px] font-mono text-text-muted uppercase tracking-[0.2em]">Training</span>
+                  <p className="text-xs mt-1 font-light" style={{ color: tier.color, opacity: 0.8 }}>{tier.training}</p>
                 </div>
               </div>
             </div>

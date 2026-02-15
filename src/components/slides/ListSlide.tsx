@@ -9,8 +9,6 @@ interface ListSlideProps {
   isActive: boolean;
 }
 
-const iconSymbols = ['\u25c9', '\u25c6', '\u25a3', '\u2726', '\u2b22', '\u25ce'];
-
 function splitInHalf<T>(values: T[]): [T[], T[]] {
   const midpoint = Math.ceil(values.length / 2);
   return [values.slice(0, midpoint), values.slice(midpoint)];
@@ -29,8 +27,8 @@ function runListAnimation(container: HTMLDivElement, layout: Slide['layout']) {
   const titleAndMeta = container.querySelectorAll('[data-list-heading]');
   gsap.fromTo(
     titleAndMeta,
-    { opacity: 0, y: 18 },
-    { opacity: 1, y: 0, duration: 0.45, stagger: 0.08, delay: 0.08, ease: 'power2.out' }
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.1, ease: 'power3.out' }
   );
 
   if (layout === 'split' || layout === 'comparison') {
@@ -39,21 +37,21 @@ function runListAnimation(container: HTMLDivElement, layout: Slide['layout']) {
 
     gsap.fromTo(
       left,
-      { opacity: 0, x: -40, y: 10 },
-      { opacity: 1, x: 0, y: 0, duration: 0.48, stagger: 0.12, delay: 0.2, ease: 'power2.out' }
+      { opacity: 0, x: -30, y: 10 },
+      { opacity: 1, x: 0, y: 0, duration: 0.5, stagger: 0.1, delay: 0.25, ease: 'power3.out' }
     );
 
     gsap.fromTo(
       right,
-      { opacity: 0, x: 40, y: 10 },
-      { opacity: 1, x: 0, y: 0, duration: 0.48, stagger: 0.12, delay: 0.24, ease: 'power2.out' }
+      { opacity: 0, x: 30, y: 10 },
+      { opacity: 1, x: 0, y: 0, duration: 0.5, stagger: 0.1, delay: 0.3, ease: 'power3.out' }
     );
   } else {
     const items = container.querySelectorAll('[data-list-stagger]');
     gsap.fromTo(
       items,
-      { opacity: 0, y: 24 },
-      { opacity: 1, y: 0, duration: 0.46, stagger: 0.12, delay: 0.22, ease: 'power2.out' }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.25, ease: 'power3.out' }
     );
   }
 
@@ -62,7 +60,7 @@ function runListAnimation(container: HTMLDivElement, layout: Slide['layout']) {
     gsap.fromTo(
       content,
       { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.4, delay: 0.52, ease: 'power2.out' }
+      { opacity: 1, y: 0, duration: 0.45, delay: 0.6, ease: 'power3.out' }
     );
   }
 }
@@ -70,13 +68,13 @@ function runListAnimation(container: HTMLDivElement, layout: Slide['layout']) {
 function ItemText({ item }: { item: string }) {
   const parsed = parseItem(item);
   if (!parsed.label) {
-    return <p className="text-[15px] md:text-base text-text-secondary leading-relaxed">{parsed.text}</p>;
+    return <p className="text-[15px] md:text-sm text-text-secondary leading-relaxed font-light">{parsed.text}</p>;
   }
 
   return (
-    <p className="text-[15px] md:text-base leading-relaxed">
-      <span className="font-mono text-accent font-semibold">{parsed.label}:</span>
-      <span className="text-text-secondary ml-1.5">{parsed.text}</span>
+    <p className="text-[15px] md:text-sm leading-relaxed">
+      <span className="font-mono text-accent font-medium text-[13px]">{parsed.label}:</span>
+      <span className="text-text-secondary ml-1.5 font-light">{parsed.text}</span>
     </p>
   );
 }
@@ -105,50 +103,40 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
   }, [isActive]);
 
   const imagePanel = slide.atmosphereImage ? (
-    <div className="relative rounded-2xl overflow-hidden border border-white/[0.08] min-h-[240px] md:min-h-[360px]">
+    <div className="relative rounded-xl overflow-hidden border border-white/[0.06] min-h-[240px] md:min-h-[360px]">
       <img
         src={slide.atmosphereImage}
         alt={slide.atmosphereAlt || slide.title || 'Atmosphere'}
         className="w-full h-full object-cover"
         loading="lazy"
       />
-      {/* Triple-layer overlay for bulletproof readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/88 via-black/65 to-black/88" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/60" />
-      <div className="absolute inset-0 bg-black/15" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/65 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/60" />
     </div>
   ) : null;
 
   return (
     <div ref={containerRef} className="h-full min-h-full flex items-center justify-center px-5 md:px-10 py-16 md:py-10">
-      <div className="w-full max-w-5xl">
-        {/* Title - strong weight contrast */}
-        <h2
-          data-list-heading
-          className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-4 leading-[1.12] max-w-4xl tracking-tight"
-        >
+      <div className="w-full max-w-6xl">
+        <h2 data-list-heading className="font-serif text-title font-bold text-text-primary mb-3 leading-tight max-w-4xl tracking-tight">
           {slide.title}
         </h2>
 
         {slide.subtitle && (
-          <p
-            data-list-heading
-            className="text-[15px] md:text-lg text-text-secondary mb-10 max-w-3xl leading-relaxed"
-          >
+          <p data-list-heading className="text-sm md:text-base text-text-secondary mb-8 max-w-3xl leading-relaxed font-light">
             {slide.subtitle}
           </p>
         )}
 
-        {/* SPLIT LAYOUT */}
         {layout === 'split' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
-            <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-8">
+            <div className="space-y-2.5">
               {items.map((item, i) => (
                 <div
                   key={i}
                   data-list-stagger
                   data-list-side="left"
-                  className="glass rounded-xl px-5 md:px-6 py-4 border-gradient"
+                  className="rounded-lg px-5 py-3.5 border border-white/[0.04] bg-white/[0.015] transition-colors hover:border-white/[0.08]"
                 >
                   <ItemText item={item} />
                 </div>
@@ -158,28 +146,27 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
           </div>
         )}
 
-        {/* COMPARISON LAYOUT */}
         {layout === 'comparison' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-            <div className="glass-strong rounded-2xl p-5 md:p-6 space-y-3">
+            <div className="rounded-xl p-4 md:p-5 space-y-2.5 border border-white/[0.05] bg-white/[0.015]">
               {leftColumn.map((item, i) => (
                 <div
                   key={i}
                   data-list-stagger
                   data-list-side="left"
-                  className="border border-white/[0.06] rounded-xl px-5 py-3.5 hover:border-white/[0.10] transition-colors"
+                  className="border border-white/[0.04] rounded-lg px-4 py-3 transition-colors hover:border-white/[0.08]"
                 >
                   <ItemText item={item} />
                 </div>
               ))}
             </div>
-            <div className="glass-strong rounded-2xl p-5 md:p-6 space-y-3">
+            <div className="rounded-xl p-4 md:p-5 space-y-2.5 border border-white/[0.05] bg-white/[0.015]">
               {rightColumn.map((item, i) => (
                 <div
                   key={i}
                   data-list-stagger
                   data-list-side="right"
-                  className="border border-white/[0.06] rounded-xl px-5 py-3.5 hover:border-white/[0.10] transition-colors"
+                  className="border border-white/[0.04] rounded-lg px-4 py-3 transition-colors hover:border-white/[0.08]"
                 >
                   <ItemText item={item} />
                 </div>
@@ -193,17 +180,17 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
           </div>
         )}
 
-        {/* ICON GRID LAYOUT */}
         {layout === 'icon-grid' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {items.map((item, i) => (
               <div
                 key={i}
                 data-list-stagger
-                className="glass rounded-2xl border-gradient p-5 md:p-6 min-h-[155px]"
+                className="rounded-xl border border-white/[0.05] bg-white/[0.015] p-5 md:p-6 min-h-[140px] transition-colors hover:border-white/[0.08] group"
               >
-                <div className="w-11 h-11 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4">
-                  <span className="text-accent text-lg leading-none">{iconSymbols[i % iconSymbols.length]}</span>
+                {/* Refined icon badge */}
+                <div className="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
+                  <span className="font-mono text-accent text-xs font-bold">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <ItemText item={item} />
               </div>
@@ -216,14 +203,13 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
           </div>
         )}
 
-        {/* DEFAULT LAYOUT */}
         {layout === 'default' && (
-          <div className="space-y-3 mb-8 max-w-4xl">
+          <div className="space-y-2.5 mb-8 max-w-4xl">
             {items.map((item, i) => (
               <div
                 key={i}
                 data-list-stagger
-                className="glass rounded-xl px-6 py-4 transition-colors hover:border-white/[0.12]"
+                className="rounded-lg px-5 py-3.5 border border-white/[0.04] bg-white/[0.015] transition-colors hover:border-white/[0.08]"
               >
                 <ItemText item={item} />
               </div>
@@ -231,12 +217,8 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
           </div>
         )}
 
-        {/* Footer content */}
         {slide.content && (
-          <p
-            data-list-content
-            className="text-[15px] md:text-base text-text-tertiary italic border-l-2 border-accent/30 pl-5 max-w-4xl leading-relaxed"
-          >
+          <p data-list-content className="text-sm text-text-tertiary italic border-l border-accent/25 pl-4 max-w-4xl leading-relaxed font-light">
             {slide.content}
           </p>
         )}

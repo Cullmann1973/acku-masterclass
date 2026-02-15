@@ -210,19 +210,19 @@ export function Presentation() {
   // Overview mode
   if (showOverview) {
     return (
-      <div className="fixed inset-0 z-50 overflow-auto p-6" style={{ background: 'rgba(8,8,13,0.96)' }}>
+      <div className="fixed inset-0 z-50 overflow-auto p-6" style={{ background: 'rgba(5,5,7,0.97)' }}>
         <Background module={currentModule} />
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-serif text-2xl text-text-primary tracking-tight">Slide Overview</h2>
+            <h2 className="font-serif text-xl text-text-primary tracking-tight">Slide Overview</h2>
             <button
               onClick={() => setShowOverview(false)}
-              className="font-mono text-sm text-accent hover:text-accent-hover transition-colors tracking-wider"
+              className="font-mono text-[10px] tracking-[0.2em] uppercase text-accent/70 hover:text-accent transition-colors"
             >
               Close (Esc)
             </button>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
             {slides.map((slide, i) => (
               <button
                 key={slide.id}
@@ -230,15 +230,15 @@ export function Presentation() {
                   goToSlide(i);
                   setShowOverview(false);
                 }}
-                className={`text-left glass rounded-xl p-3.5 transition-all hover:border-accent/30 ${
-                  i === currentSlide ? 'border-accent/50 ring-1 ring-accent/20' : ''
+                className={`text-left rounded-lg p-3 border transition-all hover:border-white/[0.1] bg-white/[0.02] ${
+                  i === currentSlide ? 'border-accent/25 bg-accent/[0.04]' : 'border-white/[0.04]'
                 }`}
               >
-                <span className="font-mono text-[11px] text-text-tertiary tabular-nums">{i + 1}</span>
+                <span className="font-mono text-[10px] text-text-muted tabular-nums">{i + 1}</span>
                 <p className="text-xs text-text-primary mt-1 line-clamp-2 font-medium leading-snug">
                   {slide.title || slide.type}
                 </p>
-                <span className="text-[10px] font-mono text-text-tertiary mt-1.5 block uppercase tracking-wider">
+                <span className="text-[10px] font-mono text-text-muted mt-1.5 block uppercase tracking-[0.15em]">
                   {slide.type}
                 </span>
               </button>
@@ -253,25 +253,25 @@ export function Presentation() {
     <div className="presentation-stage">
       <Background module={currentModule} />
 
-      {/* Click zones for navigation */}
+      {/* Click zones for navigation - minimal */}
       <button
-        className="fixed left-0 top-0 w-16 h-full z-30 opacity-0 hover:opacity-100 transition-opacity cursor-w-resize"
+        className="fixed left-0 top-0 w-14 h-full z-30 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-w-resize"
         onClick={onPrev}
         aria-label="Previous slide"
       >
         <div className="h-full flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-text-tertiary">
+          <div className="w-7 h-7 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-text-muted text-xs">
             {'\u2190'}
           </div>
         </div>
       </button>
       <button
-        className="fixed right-0 top-0 w-16 h-full z-30 opacity-0 hover:opacity-100 transition-opacity cursor-e-resize"
+        className="fixed right-0 top-0 w-14 h-full z-30 opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-e-resize"
         onClick={onNext}
         aria-label="Next slide"
       >
         <div className="h-full flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full glass flex items-center justify-center text-text-tertiary">
+          <div className="w-7 h-7 rounded-full border border-white/[0.08] bg-white/[0.03] flex items-center justify-center text-text-muted text-xs">
             {'\u2192'}
           </div>
         </div>
@@ -298,14 +298,14 @@ export function Presentation() {
         currentModule={currentModule}
       />
 
-      {/* Overview hint */}
+      {/* Overview hint - ultra-minimal */}
       <div className="fixed top-4 right-4 z-40">
         <button
           onClick={() => setShowOverview(true)}
-          className="font-mono text-[11px] text-text-tertiary hover:text-accent transition-colors glass rounded-lg px-3 py-1.5 tracking-wider"
+          className="font-mono text-[9px] text-text-muted hover:text-accent/70 transition-colors rounded-md px-2.5 py-1 border border-white/[0.04] bg-white/[0.02] tracking-[0.15em] uppercase"
           title="Press O for overview"
         >
-          Overview (O)
+          Overview
         </button>
       </div>
     </div>

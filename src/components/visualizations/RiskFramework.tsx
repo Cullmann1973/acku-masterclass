@@ -6,36 +6,36 @@ import { gsap } from 'gsap';
 const risks = [
   {
     category: 'Data Privacy & Security',
-    icon: 'R1',
+    icon: '01',
     color: '#00d4aa',
     risks: ['Confidential data in public AI tools', 'Customer data used without consent', 'Cross-border data transfer issues'],
     prevention: 'Clear data classification, approved tool list, DLP controls, regular audits',
   },
   {
     category: 'Accuracy & Reliability',
-    icon: 'R2',
-    color: '#00c4ba',
+    icon: '02',
+    color: '#22d3ee',
     risks: ['AI hallucinations', 'Model degradation over time', 'Over-reliance without verification'],
     prevention: 'Human-in-the-loop for high-risk decisions, model monitoring, expert review policies',
   },
   {
     category: 'Bias & Fairness',
-    icon: 'R3',
-    color: '#00b4ca',
+    icon: '03',
+    color: '#6366f1',
     risks: ['Historical biases in training data', 'Discriminatory outcomes', 'Lack of diversity in development'],
     prevention: 'Bias testing before deployment, diverse review panels, regular fairness audits',
   },
   {
     category: 'Regulatory & Compliance',
-    icon: 'R4',
-    color: '#00a4d4',
+    icon: '04',
+    color: '#818cf8',
     risks: ['AI docs don\'t meet regulatory standards', 'Audit trail gaps', 'IP ownership issues'],
     prevention: 'Documentation requirements, audit trails for AI decisions, regulatory monitoring',
   },
   {
     category: 'Organizational',
-    icon: 'R5',
-    color: '#0094e4',
+    icon: '05',
+    color: '#a78bfa',
     risks: ['Key person dependency', 'Vendor lock-in', 'Shadow AI', 'Change fatigue'],
     prevention: 'Distributed ownership, multi-vendor strategy, discovery audits, phased rollout',
   },
@@ -55,8 +55,8 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
     hasAnimated.current = true;
 
     const cards = containerRef.current.querySelectorAll('.risk-card');
-    gsap.fromTo(cards, { opacity: 0, y: 20, scale: 0.95 }, {
-      opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out', delay: 0.3,
+    gsap.fromTo(cards, { opacity: 0, y: 18, scale: 0.97 }, {
+      opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.08, ease: 'power3.out', delay: 0.3,
     });
 
     return () => {
@@ -72,39 +72,40 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+    <div ref={containerRef} className="w-full max-w-5xl mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-2.5">
         {risks.map((risk, i) => (
           <div
             key={risk.category}
-            className={`risk-card glass rounded-xl p-4 cursor-pointer transition-all duration-300 ${
-              expandedIndex === i ? 'md:col-span-2 ring-1' : ''
+            className={`risk-card rounded-xl p-4 cursor-pointer transition-all duration-300 border ${
+              expandedIndex === i ? 'md:col-span-2' : ''
             }`}
             style={{
-              borderColor: expandedIndex === i ? risk.color : 'transparent',
+              borderColor: expandedIndex === i ? `${risk.color}30` : `${risk.color}10`,
+              background: `linear-gradient(180deg, ${risk.color}${expandedIndex === i ? '0a' : '05'} 0%, transparent 60%)`,
             }}
             onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
           >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">{risk.icon}</span>
-              <h4 className="font-mono text-[15px] md:text-xs font-bold" style={{ color: risk.color }}>
+            <div className="flex items-center gap-2 mb-2.5">
+              <span className="font-mono text-[10px] text-text-muted tracking-wider">{risk.icon}</span>
+              <h4 className="font-mono text-[11px] font-bold tracking-wide" style={{ color: risk.color }}>
                 {risk.category}
               </h4>
             </div>
             
-            <ul className="space-y-1 mb-2">
+            <ul className="space-y-1.5 mb-2">
               {risk.risks.map((r, j) => (
-                <li key={j} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
-                  <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0" style={{ background: risk.color }} />
+                <li key={j} className="text-xs text-text-secondary flex items-start gap-2 font-light">
+                  <span className="w-0.5 h-0.5 rounded-full mt-2 shrink-0 opacity-50" style={{ background: risk.color }} />
                   {r}
                 </li>
               ))}
             </ul>
 
             {expandedIndex === i && (
-              <div className="border-t border-white/5 pt-2 mt-2">
-                <p className="text-sm md:text-xs font-mono" style={{ color: risk.color, opacity: 0.8 }}>
-                  Prevention: {risk.prevention}
+              <div className="border-t border-white/[0.05] pt-2.5 mt-2.5">
+                <p className="text-[11px] font-mono opacity-70" style={{ color: risk.color }}>
+                  {risk.prevention}
                 </p>
               </div>
             )}
@@ -112,8 +113,8 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
         ))}
       </div>
 
-      <p className="text-center text-sm md:text-xs text-text-tertiary mt-4 font-mono">
-        Tap any category to expand prevention strategies
+      <p className="text-center text-[10px] text-text-muted mt-5 font-mono tracking-wide">
+        Click any category to expand prevention strategies
       </p>
     </div>
   );

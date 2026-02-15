@@ -18,7 +18,7 @@ const milestones = [
     title: 'First Use Case',
     metric: '65% adoption in week 1',
     items: ['Piloted with 25 quality engineers', '30-minute training sessions', '4 hours saved per user per week'],
-    color: '#00c4ba',
+    color: '#22d3ee',
   },
   {
     period: 'Month 6-9',
@@ -26,7 +26,7 @@ const milestones = [
     title: 'Multi-Function',
     metric: '5 new functions',
     items: ['Supply chain, regulatory, R&D, marketing, engineering', 'Peer champions in each', 'Monthly AI Office Hours'],
-    color: '#00b4ca',
+    color: '#6366f1',
   },
   {
     period: 'Month 9-12',
@@ -34,7 +34,7 @@ const milestones = [
     title: 'All Sites',
     metric: '500 active users',
     items: ['All NA manufacturing sites', 'Formal training program', 'AI governance council', 'Published AI use policy'],
-    color: '#00a4d4',
+    color: '#818cf8',
   },
   {
     period: 'Month 12-18',
@@ -42,7 +42,7 @@ const milestones = [
     title: 'Organic Growth',
     metric: '1,000+ engaged users',
     items: ['Organic word-of-mouth growth', 'Internal community of practice', 'Systematic business impact measurement'],
-    color: '#0094e4',
+    color: '#a78bfa',
   },
 ];
 
@@ -58,24 +58,21 @@ export function Timeline({ isActive }: TimelineProps) {
     if (!isActive || !containerRef.current || hasAnimated.current) return;
     hasAnimated.current = true;
 
-    // Animate the line
     const line = containerRef.current.querySelector('.timeline-line');
     if (line) {
       gsap.fromTo(line, { scaleY: 0 }, {
-        scaleY: 1, duration: 1.2, ease: 'power2.inOut', delay: 0.2,
+        scaleY: 1, duration: 1.4, ease: 'power2.inOut', delay: 0.2,
       });
     }
 
-    // Animate nodes
     const nodes = containerRef.current.querySelectorAll('.timeline-node');
     gsap.fromTo(nodes, { scale: 0, opacity: 0 }, {
-      scale: 1, opacity: 1, duration: 0.4, stagger: 0.15, ease: 'back.out(2)', delay: 0.4,
+      scale: 1, opacity: 1, duration: 0.4, stagger: 0.12, ease: 'back.out(2)', delay: 0.4,
     });
 
-    // Animate cards
     const cards = containerRef.current.querySelectorAll('.timeline-card');
-    gsap.fromTo(cards, { opacity: 0, x: -30 }, {
-      opacity: 1, x: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out', delay: 0.6,
+    gsap.fromTo(cards, { opacity: 0, x: -24 }, {
+      opacity: 1, x: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out', delay: 0.6,
     });
 
     return () => {
@@ -90,38 +87,47 @@ export function Timeline({ isActive }: TimelineProps) {
   return (
     <div ref={containerRef} className="w-full max-w-3xl mx-auto px-4">
       <div className="relative">
-        {/* Vertical line */}
-        <div className="timeline-line origin-top absolute left-6 md:left-8 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00d4aa] via-[#00a4d4] to-[#0094e4] opacity-30" />
+        {/* Vertical gradient line */}
+        <div className="timeline-line origin-top absolute left-6 md:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#00d4aa]/30 via-[#6366f1]/20 to-[#a78bfa]/10" />
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {milestones.map((ms) => (
             <div key={ms.period} className="relative flex gap-4 md:gap-6">
               {/* Node */}
               <div className="timeline-node relative z-10 flex-shrink-0 w-12 md:w-16 flex items-start justify-center pt-4">
                 <div
-                  className="w-3 h-3 rounded-full border-2"
-                  style={{ borderColor: ms.color, background: `${ms.color}33` }}
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{
+                    background: ms.color,
+                    boxShadow: `0 0 8px ${ms.color}40`,
+                  }}
                 />
               </div>
 
               {/* Card */}
-              <div className="timeline-card flex-1 glass rounded-lg p-4 mb-1">
-                <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <span className="font-mono text-xs font-bold" style={{ color: ms.color }}>
+              <div
+                className="timeline-card flex-1 rounded-lg p-4 mb-1 border transition-all hover:border-white/[0.1]"
+                style={{
+                  borderColor: `${ms.color}10`,
+                  background: `linear-gradient(135deg, ${ms.color}05 0%, transparent 50%)`,
+                }}
+              >
+                <div className="flex flex-wrap items-baseline gap-2.5 mb-1">
+                  <span className="font-mono text-[10px] font-bold tracking-[0.15em]" style={{ color: ms.color }}>
                     {ms.phase}
                   </span>
-                  <span className="text-xs text-text-tertiary font-mono">{ms.period}</span>
+                  <span className="text-[10px] text-text-muted font-mono tracking-wide">{ms.period}</span>
                 </div>
-                <h4 className="font-serif text-base font-bold text-text-primary mb-1">
+                <h4 className="font-serif text-base font-bold text-text-primary mb-1.5">
                   {ms.title}
                 </h4>
-                <div className="font-mono text-sm mb-2" style={{ color: ms.color }}>
+                <div className="font-mono text-sm mb-2.5" style={{ color: ms.color, opacity: 0.8 }}>
                   {ms.metric}
                 </div>
-                <ul className="space-y-0.5">
+                <ul className="space-y-1">
                   {ms.items.map((item, i) => (
-                    <li key={i} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
-                      <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0 bg-white/20" />
+                    <li key={i} className="text-xs text-text-secondary flex items-start gap-2 font-light">
+                      <span className="w-0.5 h-0.5 rounded-full mt-2 shrink-0 opacity-40" style={{ background: ms.color }} />
                       {item}
                     </li>
                   ))}

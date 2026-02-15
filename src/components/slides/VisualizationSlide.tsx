@@ -42,13 +42,13 @@ export function VisualizationSlide({ slide, isActive }: VisualizationSlideProps)
 
     const ctx = gsap.context(() => {
       const title = containerRef.current!.querySelector('.viz-title');
-      gsap.fromTo(title, { opacity: 0, y: 15 }, {
-        opacity: 1, y: 0, duration: 0.5, delay: 0.1,
+      gsap.fromTo(title, { opacity: 0, y: 18 }, {
+        opacity: 1, y: 0, duration: 0.6, delay: 0.1, ease: 'power3.out',
       });
 
       const subtitle = containerRef.current!.querySelector('.viz-subtitle');
       if (subtitle) {
-        gsap.fromTo(subtitle, { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 0.3 });
+        gsap.fromTo(subtitle, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.25, ease: 'power3.out' });
       }
     }, containerRef);
 
@@ -62,21 +62,21 @@ export function VisualizationSlide({ slide, isActive }: VisualizationSlideProps)
   const VisualizationComponent = slide.visualization ? visualizationMap[slide.visualization] : null;
 
   return (
-    <div ref={containerRef} className="h-full flex flex-col items-center justify-center px-4 md:px-8 py-8">
-      {/* Title */}
-      <h2 className="viz-title font-serif text-2xl md:text-4xl font-bold text-text-primary text-center mb-3 tracking-tight">
+    <div ref={containerRef} className="h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-8 py-12 md:py-8">
+      {/* Title - refined sizing */}
+      <h2 className="viz-title font-serif text-xl md:text-2xl lg:text-3xl font-bold text-text-primary text-center mb-2 shrink-0 tracking-tight">
         {slide.title}
       </h2>
 
       {/* Subtitle */}
       {slide.subtitle && (
-        <p className="viz-subtitle text-[15px] md:text-base text-text-secondary text-center mb-8 max-w-2xl">
+        <p className="viz-subtitle text-sm text-text-tertiary text-center mb-6 md:mb-8 max-w-2xl shrink-0 font-light">
           {slide.subtitle}
         </p>
       )}
 
       {/* Visualization */}
-      <div className="w-full flex-1 flex items-center justify-center min-h-0">
+      <div className="w-full flex-1 flex items-start md:items-center justify-center min-h-0 max-h-[calc(100%-6rem)] overflow-y-auto overflow-x-hidden">
         {VisualizationComponent && <VisualizationComponent isActive={isActive} />}
       </div>
     </div>

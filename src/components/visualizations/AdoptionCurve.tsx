@@ -9,32 +9,24 @@ const segments = [
     percentage: '10-15%',
     description: 'Adopt immediately. Find and empower them.',
     color: '#00d4aa',
-    height: '40%',
-    width: '15%',
   },
   {
     label: 'Early Majority',
     percentage: '60-70%',
     description: 'Adopt when they see colleagues succeeding. Need social proof.',
-    color: '#00c4ba',
-    height: '90%',
-    width: '35%',
+    color: '#22d3ee',
   },
   {
     label: 'Late Majority',
     percentage: '15-20%',
-    description: 'Resist until it\'s the default. Don\'t fight them - build momentum.',
-    color: '#00a4d4',
-    height: '55%',
-    width: '25%',
+    description: 'Resist until it\'s the default. Don\'t fight them.',
+    color: '#6366f1',
   },
   {
     label: 'Holdouts',
     percentage: '~5%',
     description: 'Will never adopt. Don\'t optimize for them.',
-    color: '#b39f87',
-    height: '20%',
-    width: '10%',
+    color: '#71717a',
   },
 ];
 
@@ -50,26 +42,23 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
     if (!isActive || !containerRef.current || hasAnimated.current) return;
     hasAnimated.current = true;
 
-    // Animate the SVG curve drawing
     const path = containerRef.current.querySelector('.curve-path') as SVGPathElement;
     if (path) {
       const length = path.getTotalLength();
       gsap.fromTo(path,
         { strokeDasharray: length, strokeDashoffset: length },
-        { strokeDashoffset: 0, duration: 1.5, ease: 'power2.inOut', delay: 0.3 }
+        { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut', delay: 0.3 }
       );
     }
 
-    // Animate the fill
     const fill = containerRef.current.querySelector('.curve-fill') as SVGPathElement;
     if (fill) {
-      gsap.fromTo(fill, { opacity: 0 }, { opacity: 0.15, duration: 0.8, delay: 1 });
+      gsap.fromTo(fill, { opacity: 0 }, { opacity: 0.12, duration: 1, delay: 1.2 });
     }
 
-    // Animate labels
     const labels = containerRef.current.querySelectorAll('.curve-label');
-    gsap.fromTo(labels, { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out', delay: 1.2,
+    gsap.fromTo(labels, { opacity: 0, y: 16 }, {
+      opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power3.out', delay: 1.4,
     });
 
     return () => {
@@ -84,10 +73,10 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
       {/* SVG Bell Curve */}
-      <div className="relative w-full h-[220px] mb-6">
+      <div className="relative w-full h-[220px] mb-8">
         <svg viewBox="0 0 800 250" className="w-full h-full" preserveAspectRatio="xMidYMid meet">
-          {/* Grid lines */}
-          <line x1="50" y1="210" x2="750" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          {/* Subtle grid line */}
+          <line x1="50" y1="210" x2="750" y2="210" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
           
           {/* Filled area */}
           <path
@@ -102,25 +91,31 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
             className="curve-path"
             d="M 80 210 Q 150 210 200 180 Q 280 100 350 50 Q 420 10 450 10 Q 480 10 500 30 Q 560 80 620 160 Q 680 200 720 210"
             fill="none"
-            stroke="#00d4aa"
-            strokeWidth="3"
+            stroke="url(#curveStroke)"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
 
-          {/* Gradient definition */}
+          {/* Gradient definitions */}
           <defs>
             <linearGradient id="curveGradient" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#00d4aa" />
-              <stop offset="50%" stopColor="#00c4ba" />
-              <stop offset="75%" stopColor="#00a4d4" />
-              <stop offset="100%" stopColor="#b39f87" />
+              <stop offset="40%" stopColor="#22d3ee" />
+              <stop offset="75%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="#71717a" />
+            </linearGradient>
+            <linearGradient id="curveStroke" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#00d4aa" />
+              <stop offset="40%" stopColor="#22d3ee" />
+              <stop offset="75%" stopColor="#6366f1" />
+              <stop offset="100%" stopColor="#71717a" />
             </linearGradient>
           </defs>
 
           {/* Segment dividers */}
-          <line x1="200" y1="30" x2="200" y2="210" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4,4" />
-          <line x1="500" y1="30" x2="500" y2="210" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4,4" />
-          <line x1="650" y1="30" x2="650" y2="210" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4,4" />
+          <line x1="200" y1="30" x2="200" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="3,5" />
+          <line x1="500" y1="30" x2="500" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="3,5" />
+          <line x1="650" y1="30" x2="650" y2="210" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="3,5" />
         </svg>
       </div>
 
@@ -129,15 +124,19 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
         {segments.map((seg) => (
           <div
             key={seg.label}
-            className="curve-label glass rounded-lg p-3 text-center"
+            className="curve-label rounded-xl p-4 text-center border transition-all hover:border-white/[0.1]"
+            style={{
+              borderColor: `${seg.color}12`,
+              background: `linear-gradient(180deg, ${seg.color}06 0%, transparent 70%)`,
+            }}
           >
-            <div className="font-mono text-xl md:text-2xl font-bold mb-1" style={{ color: seg.color }}>
+            <div className="font-mono text-2xl md:text-3xl font-bold mb-2 tracking-tighter" style={{ color: seg.color }}>
               {seg.percentage}
             </div>
-            <div className="font-serif text-[15px] md:text-sm font-semibold text-text-primary mb-1">
+            <div className="font-serif text-sm font-semibold text-text-primary mb-1.5">
               {seg.label}
             </div>
-            <p className="text-sm md:text-xs text-text-secondary leading-relaxed">
+            <p className="text-xs text-text-tertiary leading-relaxed font-light">
               {seg.description}
             </p>
           </div>

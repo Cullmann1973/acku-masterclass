@@ -23,28 +23,28 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
       const numbers = containerRef.current!.querySelectorAll('[data-stat-number]');
       const text = containerRef.current!.querySelectorAll('[data-stat-text]');
 
-      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
-      timeline.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      timeline.fromTo(title, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 });
       timeline.fromTo(
         cards,
-        { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.46, stagger: 0.12 },
-        '-=0.25'
-      );
-      timeline.fromTo(
-        numbers,
-        { opacity: 0, scale: 0.85, transformOrigin: '50% 50%' },
-        { opacity: 1, scale: 1, duration: 0.48, stagger: 0.12 },
+        { opacity: 0, y: 28, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.55, stagger: 0.12 },
         '-=0.3'
       );
       timeline.fromTo(
+        numbers,
+        { opacity: 0, scale: 0.8, transformOrigin: '50% 50%' },
+        { opacity: 1, scale: 1, duration: 0.55, stagger: 0.12 },
+        '-=0.35'
+      );
+      timeline.fromTo(
         text,
-        { opacity: 0, y: 8 },
-        { opacity: 1, y: 0, duration: 0.38, stagger: 0.1 },
-        '-=0.32'
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
+        '-=0.3'
       );
 
-      // Count up the numbers
+      // Count up animation
       const counters = containerRef.current!.querySelectorAll('[data-count]');
       counters.forEach((el, idx) => {
         const target = parseFloat(el.getAttribute('data-count') || '0');
@@ -56,8 +56,8 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
         const obj = { val: 0 };
         gsap.to(obj, {
           val: target,
-          duration: 1.6,
-          delay: 0.45 + idx * 0.12,
+          duration: 1.8,
+          delay: 0.5 + idx * 0.12,
           ease: 'power2.out',
           onUpdate: () => {
             const display = isDecimal
@@ -70,12 +70,12 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
 
       const notes = containerRef.current!.querySelector('.stat-notes');
       if (notes) {
-        gsap.fromTo(notes, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, delay: 1.1, ease: 'power2.out' });
+        gsap.fromTo(notes, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.4, delay: 1.2, ease: 'power2.out' });
       }
 
       const content = containerRef.current!.querySelector('.stat-content');
       if (content) {
-        gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.42, delay: 0.95, ease: 'power2.out' });
+        gsap.fromTo(content, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, delay: 1, ease: 'power2.out' });
       }
     }, containerRef);
 
@@ -87,33 +87,32 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
   }, [isActive]);
 
   const statCount = slide.stats?.length || 0;
-  const gridCols = statCount === 1
-    ? 'grid-cols-1 max-w-lg'
-    : statCount === 2
-      ? 'grid-cols-1 md:grid-cols-2 max-w-3xl'
-      : 'grid-cols-1 md:grid-cols-3 max-w-5xl';
+  const gridCols = statCount === 1 ? 'grid-cols-1 max-w-md' : statCount === 2 ? 'grid-cols-1 md:grid-cols-2 max-w-3xl' : 'grid-cols-1 md:grid-cols-3 max-w-5xl';
 
   return (
-    <div ref={containerRef} className="h-full flex flex-col items-center justify-center px-6 md:px-10">
+    <div ref={containerRef} className="h-full flex flex-col items-center justify-center px-8 md:px-12">
       {/* Title */}
-      <h2 className="stat-title font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary text-center mb-12 tracking-tight leading-tight max-w-4xl">
+      <h2 className="stat-title font-serif text-title font-bold text-text-primary text-center mb-12 tracking-tight max-w-3xl">
         {slide.title}
       </h2>
 
       {/* Stats grid */}
-      <div className={`grid ${gridCols} gap-5 md:gap-6 mx-auto w-full mb-10`}>
+      <div className={`grid ${gridCols} gap-5 mx-auto w-full mb-10`}>
         {slide.stats?.map((stat, i) => (
           <div
             key={i}
-            className="stat-card glass-premium rounded-2xl p-6 md:p-8 text-center border-gradient"
+            className="stat-card rounded-2xl p-8 md:p-10 text-center border border-white/[0.06] bg-white/[0.02] relative overflow-hidden"
           >
+            {/* Subtle top glow line */}
+            <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+
             {stat.prefix && stat.prefix !== '$' && stat.prefix !== '<$' && (
-              <span className="text-xs font-mono text-text-tertiary uppercase tracking-[0.2em] block mb-3" data-stat-text>
+              <span className="text-[10px] font-mono text-text-tertiary uppercase tracking-[0.2em] block mb-3" data-stat-text>
                 {stat.prefix}
               </span>
             )}
             <div
-              className="font-mono text-4xl md:text-6xl lg:text-7xl font-bold text-accent mb-4 glow-text tracking-tight"
+              className="font-mono text-5xl md:text-6xl font-bold text-accent mb-4 glow-text tracking-tighter"
               data-count={stat.value}
               data-prefix={stat.prefix === '$' || stat.prefix === '<$' ? stat.prefix : ''}
               data-suffix={stat.suffix || ''}
@@ -121,7 +120,7 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
             >
               {stat.prefix === '$' || stat.prefix === '<$' ? stat.prefix : ''}{stat.value}{stat.suffix || ''}
             </div>
-            <p className="text-[15px] md:text-base text-text-secondary leading-relaxed" data-stat-text>
+            <p className="text-sm md:text-base text-text-secondary leading-relaxed font-light" data-stat-text>
               {stat.label}
             </p>
           </div>
@@ -130,14 +129,14 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
 
       {/* Content */}
       {slide.content && (
-        <p className="stat-content text-[15px] md:text-base text-text-secondary text-center max-w-2xl italic">
+        <p className="stat-content text-sm text-text-tertiary text-center max-w-2xl italic font-light">
           {slide.content}
         </p>
       )}
 
       {/* Source notes */}
       {slide.notes && (
-        <p className="stat-notes text-xs font-mono text-text-tertiary text-center mt-5">
+        <p className="stat-notes text-[10px] font-mono text-text-muted text-center mt-4 tracking-wide">
           {slide.notes}
         </p>
       )}
