@@ -1470,47 +1470,47 @@ export const modules = [
 
 export const moduleThemes: Record<number, { gradient: string; glowA: string; glowB: string }> = {
   1: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(245, 158, 11, 0.08) 50%, rgba(249, 115, 22, 0.06) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(245, 158, 11, 0.14) 48%, rgba(249, 115, 22, 0.10) 100%)',
     glowA: '#f59e0b',
     glowB: '#fb923c',
   },
   2: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(0, 212, 170, 0.08) 50%, rgba(6, 182, 212, 0.06) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(0, 212, 170, 0.14) 48%, rgba(6, 182, 212, 0.10) 100%)',
     glowA: '#00d4aa',
     glowB: '#22d3ee',
   },
   3: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(79, 109, 245, 0.08) 50%, rgba(99, 102, 241, 0.06) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(79, 109, 245, 0.14) 48%, rgba(99, 102, 241, 0.10) 100%)',
     glowA: '#4f6df5',
     glowB: '#6366f1',
   },
   4: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(217, 70, 239, 0.07) 50%, rgba(236, 72, 153, 0.05) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(217, 70, 239, 0.12) 48%, rgba(236, 72, 153, 0.08) 100%)',
     glowA: '#d946ef',
     glowB: '#ec4899',
   },
   5: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(239, 68, 68, 0.07) 50%, rgba(220, 38, 38, 0.05) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(239, 68, 68, 0.12) 48%, rgba(220, 38, 38, 0.08) 100%)',
     glowA: '#ef4444',
     glowB: '#dc2626',
   },
   6: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(6, 182, 212, 0.08) 50%, rgba(14, 165, 233, 0.06) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(6, 182, 212, 0.14) 48%, rgba(14, 165, 233, 0.10) 100%)',
     glowA: '#06b6d4',
     glowB: '#0ea5e9',
   },
   7: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(249, 115, 22, 0.07) 50%, rgba(234, 88, 12, 0.05) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(249, 115, 22, 0.12) 48%, rgba(234, 88, 12, 0.08) 100%)',
     glowA: '#f97316',
     glowB: '#ea580c',
   },
   8: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(139, 92, 246, 0.08) 50%, rgba(124, 58, 237, 0.06) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(139, 92, 246, 0.14) 48%, rgba(124, 58, 237, 0.10) 100%)',
     glowA: '#8b5cf6',
     glowB: '#7c3aed',
   },
   9: {
-    gradient: 'linear-gradient(145deg, #050507 0%, rgba(234, 179, 8, 0.07) 50%, rgba(202, 138, 4, 0.05) 100%)',
+    gradient: 'linear-gradient(145deg, #08080d 0%, rgba(234, 179, 8, 0.12) 48%, rgba(202, 138, 4, 0.08) 100%)',
     glowA: '#eab308',
     glowB: '#ca8a04',
   },

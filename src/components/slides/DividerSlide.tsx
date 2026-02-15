@@ -85,12 +85,13 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
       {/* Subtle darkening overlay */}
       <div className="absolute inset-0 bg-black/20" />
 
-      {/* Giant module number - ultra-faint watermark */}
+      {/* Giant module number - visible watermark */}
       <div
-        className="divider-number absolute font-mono font-bold select-none opacity-[0.06]"
+        className="divider-number absolute font-mono font-bold select-none"
         style={{
           fontSize: 'clamp(250px, 45vw, 600px)',
           color: moduleColor,
+          opacity: 0.08,
           right: '-8%',
           bottom: '-15%',
           lineHeight: 0.85,
@@ -99,6 +100,17 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
       >
         {slide.module}
       </div>
+
+      {/* Accent glow orb behind content */}
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(circle, ${moduleColor}12 0%, transparent 65%)`,
+          top: '20%',
+          left: '10%',
+          filter: 'blur(60px)',
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl">

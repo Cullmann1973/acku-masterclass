@@ -66,8 +66,8 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
           </span>
         </div>
 
-        {/* Refined decorative line */}
-        <div className="title-line origin-center h-px w-16 mx-auto mb-10 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+        {/* Decorative line - wider and visible */}
+        <div className="title-line origin-center h-[2px] w-24 mx-auto mb-10 bg-gradient-to-r from-transparent via-accent/70 to-transparent" />
 
         {/* Main title - large editorial serif */}
         <h1 className="title-main font-serif text-display font-bold text-text-primary leading-[1.05] mb-8 tracking-tight">

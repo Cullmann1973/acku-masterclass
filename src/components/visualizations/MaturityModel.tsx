@@ -86,7 +86,7 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
 
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
-      <div className="flex flex-col-reverse gap-2.5">
+      <div className="flex flex-col-reverse gap-1.5">
         {levels.map((level, i) => (
           <div
             key={level.level}
@@ -95,7 +95,7 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
             {/* Desktop: pyramid card */}
             <div className="hidden md:block" style={{ width: desktopWidths[i] }}>
               <div
-                className="relative rounded-lg px-5 py-4 border transition-all hover:border-white/[0.12] group"
+                className="relative rounded-lg px-5 py-3 border transition-all hover:border-white/[0.12] group"
                 style={{
                   borderColor: `${level.accentColor}15`,
                   background: `linear-gradient(135deg, ${level.accentColor}08 0%, transparent 70%)`,

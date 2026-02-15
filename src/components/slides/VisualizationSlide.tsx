@@ -62,21 +62,21 @@ export function VisualizationSlide({ slide, isActive }: VisualizationSlideProps)
   const VisualizationComponent = slide.visualization ? visualizationMap[slide.visualization] : null;
 
   return (
-    <div ref={containerRef} className="h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-8 py-12 md:py-8">
-      {/* Title - refined sizing */}
-      <h2 className="viz-title font-serif text-xl md:text-2xl lg:text-3xl font-bold text-text-primary text-center mb-2 shrink-0 tracking-tight">
+    <div ref={containerRef} className="h-full flex flex-col items-center justify-start md:justify-center px-4 md:px-8 py-10 md:py-6">
+      {/* Title */}
+      <h2 className="viz-title font-serif text-xl md:text-2xl lg:text-3xl font-bold text-text-primary text-center mb-1.5 shrink-0 tracking-tight">
         {slide.title}
       </h2>
 
       {/* Subtitle */}
       {slide.subtitle && (
-        <p className="viz-subtitle text-sm text-text-tertiary text-center mb-6 md:mb-8 max-w-2xl shrink-0 font-light">
+        <p className="viz-subtitle text-sm text-text-tertiary text-center mb-4 md:mb-5 max-w-2xl shrink-0 font-light">
           {slide.subtitle}
         </p>
       )}
 
       {/* Visualization */}
-      <div className="w-full flex-1 flex items-start md:items-center justify-center min-h-0 max-h-[calc(100%-6rem)] overflow-y-auto overflow-x-hidden">
+      <div className="w-full flex-1 flex items-start md:items-center justify-center min-h-0 max-h-[calc(100%-5rem)] overflow-y-auto overflow-x-hidden">
         {VisualizationComponent && <VisualizationComponent isActive={isActive} />}
       </div>
     </div>

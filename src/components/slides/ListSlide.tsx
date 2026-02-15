@@ -116,14 +116,14 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
   ) : null;
 
   return (
-    <div ref={containerRef} className="h-full min-h-full flex items-center justify-center px-5 md:px-10 py-16 md:py-10">
+    <div ref={containerRef} className="h-full min-h-full flex items-center justify-center px-5 md:px-10 py-12 md:py-6">
       <div className="w-full max-w-6xl">
-        <h2 data-list-heading className="font-serif text-title font-bold text-text-primary mb-3 leading-tight max-w-4xl tracking-tight">
+        <h2 data-list-heading className="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-text-primary mb-2 leading-tight max-w-4xl tracking-tight">
           {slide.title}
         </h2>
 
         {slide.subtitle && (
-          <p data-list-heading className="text-sm md:text-base text-text-secondary mb-8 max-w-3xl leading-relaxed font-light">
+          <p data-list-heading className="text-sm md:text-base text-text-secondary mb-5 max-w-3xl leading-relaxed font-light">
             {slide.subtitle}
           </p>
         )}
@@ -186,11 +186,11 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
               <div
                 key={i}
                 data-list-stagger
-                className="rounded-xl border border-white/[0.05] bg-white/[0.015] p-5 md:p-6 min-h-[140px] transition-colors hover:border-white/[0.08] group"
+                className="rounded-xl border border-white/[0.05] bg-white/[0.015] p-4 md:p-5 min-h-0 transition-colors hover:border-white/[0.08] group"
               >
-                {/* Refined icon badge */}
-                <div className="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/15 transition-colors">
-                  <span className="font-mono text-accent text-xs font-bold">{String(i + 1).padStart(2, '0')}</span>
+                {/* Icon badge */}
+                <div className="w-7 h-7 rounded-md bg-accent/10 border border-accent/20 flex items-center justify-center mb-3 group-hover:bg-accent/15 transition-colors">
+                  <span className="font-mono text-accent text-[10px] font-bold">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <ItemText item={item} />
               </div>

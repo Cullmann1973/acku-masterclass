@@ -13,7 +13,7 @@ export function Background({ module }: BackgroundProps) {
   const activeTheme = module ? moduleThemes[module] : null;
   const glowA = activeTheme?.glowA ?? '#00d4aa';
   const glowB = activeTheme?.glowB ?? '#6366f1';
-  const moduleGradient = activeTheme?.gradient ?? 'linear-gradient(145deg, #050507 0%, #08081a 55%, #050507 100%)';
+  const moduleGradient = activeTheme?.gradient ?? 'linear-gradient(145deg, #08080d 0%, #0b1020 55%, #08080d 100%)';
 
   useEffect(() => {
     if (!scopeRef.current) return;
@@ -38,8 +38,8 @@ export function Background({ module }: BackgroundProps) {
 
   return (
     <div ref={scopeRef} className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
-      {/* Pure black base */}
-      <div className="absolute inset-0 bg-[#050507]" />
+      {/* Deep black base */}
+      <div className="absolute inset-0 bg-[#08080d]" />
 
       {/* Module gradient wash - very subtle */}
       <div
@@ -58,16 +58,16 @@ export function Background({ module }: BackgroundProps) {
       {/* Noise texture */}
       <div className="absolute inset-0 noise-bg" />
 
-      {/* Primary accent orb - very diffuse, barely visible */}
+      {/* Primary accent orb - visible enough to create atmosphere */}
       <div
         className="morph-shape absolute rounded-full"
         style={{
-          width: '800px',
-          height: '800px',
-          background: `radial-gradient(circle, ${glowA}0a 0%, ${glowA}04 30%, transparent 65%)`,
-          top: '-20%',
-          right: '-15%',
-          filter: 'blur(80px)',
+          width: '700px',
+          height: '700px',
+          background: `radial-gradient(circle, ${glowA}10 0%, ${glowA}06 30%, transparent 65%)`,
+          top: '-15%',
+          right: '-10%',
+          filter: 'blur(60px)',
         }}
       />
 
@@ -75,25 +75,38 @@ export function Background({ module }: BackgroundProps) {
       <div
         className="morph-shape absolute rounded-full"
         style={{
-          width: '600px',
-          height: '600px',
-          background: `radial-gradient(circle, ${glowB}08 0%, ${glowB}03 30%, transparent 65%)`,
-          bottom: '0%',
-          left: '-15%',
-          filter: 'blur(70px)',
+          width: '520px',
+          height: '520px',
+          background: `radial-gradient(circle, ${glowB}0c 0%, ${glowB}05 30%, transparent 65%)`,
+          bottom: '4%',
+          left: '-10%',
+          filter: 'blur(50px)',
         }}
       />
 
-      {/* Third subtle accent - faint depth layer */}
+      {/* Third accent */}
       <div
         className="morph-shape absolute rounded-full"
         style={{
-          width: '400px',
-          height: '400px',
-          background: `radial-gradient(circle, ${glowA}06 0%, transparent 60%)`,
-          bottom: '25%',
-          right: '25%',
-          filter: 'blur(60px)',
+          width: '380px',
+          height: '380px',
+          background: `radial-gradient(circle, ${glowA}08 0%, transparent 60%)`,
+          bottom: '20%',
+          right: '20%',
+          filter: 'blur(40px)',
+        }}
+      />
+
+      {/* Warm highlight near center */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: '600px',
+          height: '300px',
+          background: 'radial-gradient(ellipse, rgba(255, 220, 180, 0.012) 0%, transparent 70%)',
+          top: '30%',
+          left: '20%',
+          filter: 'blur(40px)',
         }}
       />
     </div>

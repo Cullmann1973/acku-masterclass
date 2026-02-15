@@ -101,10 +101,15 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
         {slide.stats?.map((stat, i) => (
           <div
             key={i}
-            className="stat-card rounded-2xl p-8 md:p-10 text-center border border-white/[0.06] bg-white/[0.02] relative overflow-hidden"
+            className="stat-card rounded-2xl p-8 md:p-10 text-center border border-white/[0.07] relative overflow-hidden"
+            style={{
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+            }}
           >
-            {/* Subtle top glow line */}
-            <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+            {/* Glowing top edge - signature accent line */}
+            <div className="absolute top-0 left-[15%] right-[15%] h-[1px] bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+            {/* Subtle radial glow behind the number */}
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-accent/[0.04] blur-3xl pointer-events-none" />
 
             {stat.prefix && stat.prefix !== '$' && stat.prefix !== '<$' && (
               <span className="text-[10px] font-mono text-text-tertiary uppercase tracking-[0.2em] block mb-3" data-stat-text>
