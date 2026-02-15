@@ -26,7 +26,7 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         />
       </head>
-      <body className="bg-[#0a0a0f] text-[#eee4d7] overflow-hidden">
+      <body className="bg-[#08080d] text-[#f0ebe4] overflow-hidden">
         {children}
         <Analytics />
       </body>

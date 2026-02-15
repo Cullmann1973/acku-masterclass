@@ -18,7 +18,7 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
     hasAnimated.current = true;
 
     const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       const stage = containerRef.current!.querySelector('.title-stage');
       const line = containerRef.current!.querySelector('.title-line');
@@ -29,21 +29,22 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
 
       timeline.fromTo(
         stage,
-        { opacity: 0, scale: 0.88, y: 20, transformOrigin: '50% 50%' },
-        { opacity: 1, scale: 1, y: 0, duration: 0.75 }
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.9 }
       );
 
+      timeline.fromTo(logo, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.6');
+      
       timeline.fromTo(
         line,
         { scaleX: 0, transformOrigin: '50% 50%' },
-        { scaleX: 1, duration: 0.55 },
-        '-=0.5'
+        { scaleX: 1, duration: 0.7 },
+        '-=0.4'
       );
 
-      timeline.fromTo(logo, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.32 }, '-=0.45');
-      timeline.fromTo(title, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.52 }, '-=0.35');
-      timeline.fromTo(subtitle, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.3');
-      timeline.fromTo(content, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.42 }, '-=0.22');
+      timeline.fromTo(title, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, '-=0.4');
+      timeline.fromTo(subtitle, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3');
+      timeline.fromTo(content, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.2');
     }, containerRef);
 
     return () => ctx.revert();
@@ -56,33 +57,33 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
   const isFinalSlide = slide.id === 'final';
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-12">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-8 md:px-16">
       <div className="title-stage text-center max-w-4xl">
-        {/* Logo */}
+        {/* Logo mark */}
         <div className="title-logo mb-10">
-          <span className="font-mono text-accent text-base md:text-lg tracking-[0.4em] uppercase font-medium">
+          <span className="font-mono text-accent text-xs tracking-[0.4em] uppercase font-medium opacity-80">
             {isFinalSlide ? '' : 'ACKU-AI'}
           </span>
         </div>
 
-        {/* Decorative line */}
-        <div className="title-line origin-center h-[1px] w-28 mx-auto mb-10 bg-gradient-to-r from-transparent via-accent/70 to-transparent" />
+        {/* Refined decorative line */}
+        <div className="title-line origin-center h-px w-16 mx-auto mb-10 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
 
-        {/* Main title - massive, editorial */}
-        <h1 className="title-main font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[1.08] mb-8 tracking-tight">
+        {/* Main title - large editorial serif */}
+        <h1 className="title-main font-serif text-display font-bold text-text-primary leading-[1.05] mb-8 tracking-tight">
           {slide.title}
         </h1>
 
-        {/* Subtitle */}
+        {/* Subtitle - refined mono label */}
         {slide.subtitle && (
-          <p className="title-subtitle font-mono text-sm md:text-base text-accent tracking-[0.2em] uppercase mb-10 font-medium">
+          <p className="title-subtitle font-mono text-label text-accent tracking-[0.2em] uppercase mb-10 opacity-80">
             {slide.subtitle}
           </p>
         )}
 
-        {/* Content */}
+        {/* Content - elegant body */}
         {slide.content && (
-          <p className="title-content text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
+          <p className="title-content text-base md:text-lg text-text-secondary max-w-xl mx-auto leading-relaxed font-light">
             {slide.content}
           </p>
         )}

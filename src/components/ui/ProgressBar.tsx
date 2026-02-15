@@ -15,27 +15,24 @@ export function ProgressBar({ current, total, currentModule }: ProgressBarProps)
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
-      {/* Track */}
-      <div className="h-[2px] bg-white/[0.06]">
+      {/* Ultra-thin track */}
+      <div className="h-[1.5px] bg-white/[0.04]">
         <div
           className="h-full progress-bar"
           style={{ width: `${progress}%` }}
         />
       </div>
-      {/* Meta row */}
-      <div className="px-5 py-2.5 flex items-center justify-between gap-4">
+      {/* Meta row - minimal chrome */}
+      <div className="px-5 py-2 flex items-center justify-between gap-4">
         {mod && (
           <span
-            className="text-[11px] font-mono uppercase tracking-[0.25em] font-medium"
-            style={{
-              color: mod.color,
-              textShadow: `0 0 20px ${mod.color}40`,
-            }}
+            className="text-[10px] font-mono uppercase tracking-[0.3em] font-medium opacity-70"
+            style={{ color: mod.color }}
           >
-            Module {mod.number}: {mod.title}
+            {mod.title}
           </span>
         )}
-        <span className="text-[11px] font-mono text-text-tertiary tracking-[0.15em] tabular-nums">
+        <span className="text-[10px] font-mono text-text-tertiary tracking-[0.2em] tabular-nums opacity-60">
           {slideCounter}
         </span>
       </div>

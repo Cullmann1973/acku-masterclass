@@ -129,7 +129,7 @@ export function AdoptionCurve({ isActive }: AdoptionCurveProps) {
         {segments.map((seg) => (
           <div
             key={seg.label}
-            className="curve-label glass glass-depth rounded-lg p-3 text-center"
+            className="curve-label glass rounded-lg p-3 text-center"
           >
             <div className="font-mono text-xl md:text-2xl font-bold mb-1" style={{ color: seg.color }}>
               {seg.percentage}

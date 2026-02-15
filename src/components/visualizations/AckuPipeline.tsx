@@ -121,7 +121,7 @@ export function AckuPipeline({ isActive }: AckuPipelineProps) {
                   {'\u2192'}
                 </div>
               )}
-              <div className="pipeline-phase glass glass-depth rounded-xl p-4 h-full">
+              <div className="pipeline-phase glass rounded-xl p-4 h-full">
                 {/* Header */}
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xl">{phase.icon}</span>
@@ -157,7 +157,7 @@ export function AckuPipeline({ isActive }: AckuPipelineProps) {
       <div className="md:hidden space-y-3">
         {phases.map((phase, i) => (
           <div key={phase.name} className="relative">
-            <div className="pipeline-phase glass glass-depth rounded-xl p-4">
+            <div className="pipeline-phase glass rounded-xl p-4">
               <div className="flex items-center gap-2 mb-1">
                 <span className="text-lg">{phase.icon}</span>
                 <h3 className="font-mono text-base font-bold" style={{ color: phase.color }}>

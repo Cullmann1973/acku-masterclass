@@ -77,7 +77,7 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
         {risks.map((risk, i) => (
           <div
             key={risk.category}
-            className={`risk-card glass glass-depth rounded-xl p-4 cursor-pointer transition-all duration-300 ${
+            className={`risk-card glass rounded-xl p-4 cursor-pointer transition-all duration-300 ${
               expandedIndex === i ? 'md:col-span-2 ring-1' : ''
             }`}
             style={{

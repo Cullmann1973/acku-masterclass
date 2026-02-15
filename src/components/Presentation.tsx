@@ -210,14 +210,14 @@ export function Presentation() {
   // Overview mode
   if (showOverview) {
     return (
-      <div className="fixed inset-0 bg-bg-primary z-50 overflow-auto p-6">
+      <div className="fixed inset-0 z-50 overflow-auto p-6" style={{ background: 'rgba(8,8,13,0.96)' }}>
         <Background module={currentModule} />
         <div className="relative z-10">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="font-serif text-2xl text-text-primary">Slide Overview</h2>
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-serif text-2xl text-text-primary tracking-tight">Slide Overview</h2>
             <button
               onClick={() => setShowOverview(false)}
-              className="font-mono text-sm text-accent hover:text-accent-hover transition-colors"
+              className="font-mono text-sm text-accent hover:text-accent-hover transition-colors tracking-wider"
             >
               Close (Esc)
             </button>
@@ -230,15 +230,15 @@ export function Presentation() {
                   goToSlide(i);
                   setShowOverview(false);
                 }}
-                className={`text-left glass rounded-lg p-3 border transition-all hover:border-accent/30 ${
-                  i === currentSlide ? 'border-accent/50 ring-1 ring-accent/20' : 'border-white/5'
+                className={`text-left glass rounded-xl p-3.5 transition-all hover:border-accent/30 ${
+                  i === currentSlide ? 'border-accent/50 ring-1 ring-accent/20' : ''
                 }`}
               >
-                <span className="font-mono text-xs text-text-tertiary">{i + 1}</span>
-                <p className="text-xs text-text-primary mt-1 line-clamp-2 font-medium">
+                <span className="font-mono text-[11px] text-text-tertiary tabular-nums">{i + 1}</span>
+                <p className="text-xs text-text-primary mt-1 line-clamp-2 font-medium leading-snug">
                   {slide.title || slide.type}
                 </p>
-                <span className="text-[10px] font-mono text-text-tertiary mt-1 block">
+                <span className="text-[10px] font-mono text-text-tertiary mt-1.5 block uppercase tracking-wider">
                   {slide.type}
                 </span>
               </button>
@@ -302,7 +302,7 @@ export function Presentation() {
       <div className="fixed top-4 right-4 z-40">
         <button
           onClick={() => setShowOverview(true)}
-          className="font-mono text-xs text-text-tertiary hover:text-accent transition-colors glass rounded-md px-2 py-1"
+          className="font-mono text-[11px] text-text-tertiary hover:text-accent transition-colors glass rounded-lg px-3 py-1.5 tracking-wider"
           title="Press O for overview"
         >
           Overview (O)

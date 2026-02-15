@@ -61,28 +61,28 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-4 md:px-8">
-      {/* Different background treatment for interaction slides */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-transparent pointer-events-none" />
+    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-10">
+      {/* Subtle accent glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.04] via-transparent to-transparent pointer-events-none" />
 
       <div className="interaction-stage max-w-3xl w-full relative z-10">
         {/* YOUR TURN badge */}
-        <div className="interaction-badge inline-flex items-center gap-2 mb-6">
-          <div className="w-2 h-2 rounded-full bg-accent animate-pulse-glow" />
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-accent font-bold">
+        <div className="interaction-badge inline-flex items-center gap-3 mb-8">
+          <div className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse-glow" />
+          <span className="font-mono text-sm tracking-[0.3em] uppercase text-accent font-bold">
             Your Turn
           </span>
         </div>
 
         {/* Title */}
-        <h2 className="interaction-title font-serif text-xl md:text-4xl font-bold text-text-primary mb-6">
+        <h2 className="interaction-title font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-text-primary mb-8 tracking-tight leading-tight">
           {slide.title}
         </h2>
 
         {/* Interaction prompt */}
         {slide.interaction && (
-          <div className="interaction-prompt glass-strong rounded-xl p-6 mb-8 border border-accent/10">
-            <p className="text-base md:text-lg text-text-primary italic leading-relaxed">
+          <div className="interaction-prompt glass-premium rounded-2xl p-6 md:p-8 mb-10 border-gradient">
+            <p className="text-lg md:text-xl text-text-primary italic leading-relaxed">
               {slide.interaction}
             </p>
           </div>
@@ -90,16 +90,16 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
 
         {/* Items */}
         {slide.items && (
-          <div className="space-y-2 mb-6">
+          <div className="space-y-3 mb-8">
             {slide.items.map((item, i) => (
               <div
                 key={i}
-                className="interaction-item flex items-start gap-3 glass glass-depth rounded-lg px-4 py-3"
+                className="interaction-item flex items-start gap-4 glass rounded-xl px-5 py-4"
               >
-                <span className="w-5 h-5 rounded-md bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                <span className="w-6 h-6 rounded-lg bg-accent/12 flex items-center justify-center shrink-0 mt-0.5">
                   <span className="font-mono text-xs text-accent font-bold">{i + 1}</span>
                 </span>
-                <p className="text-[15px] md:text-sm text-text-secondary">{item}</p>
+                <p className="text-[15px] md:text-base text-text-secondary leading-relaxed">{item}</p>
               </div>
             ))}
           </div>
@@ -107,7 +107,7 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
 
         {/* Content */}
         {slide.content && (
-          <p className="interaction-content text-[15px] md:text-sm text-text-secondary text-center italic">
+          <p className="interaction-content text-[15px] md:text-base text-text-secondary text-center italic">
             {slide.content}
           </p>
         )}

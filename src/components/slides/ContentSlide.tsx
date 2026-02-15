@@ -22,14 +22,14 @@ export function ContentSlide({ slide, isActive }: ContentSlideProps) {
       const hasMultiple = elements.length > 1;
       gsap.fromTo(
         elements,
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.52,
-          stagger: hasMultiple ? 0.12 : 0,
-          ease: 'power2.out',
-          delay: 0.18,
+          duration: 0.6,
+          stagger: hasMultiple ? 0.14 : 0,
+          ease: 'power3.out',
+          delay: 0.15,
         }
       );
     }, containerRef);
@@ -42,20 +42,20 @@ export function ContentSlide({ slide, isActive }: ContentSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-10">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-8 md:px-16">
       <div className="max-w-3xl w-full text-center">
         {slide.subtitle && (
-          <p data-animate className="font-mono text-sm tracking-[0.25em] uppercase text-accent mb-8 font-medium">
+          <p data-animate className="font-mono text-label tracking-[0.25em] uppercase text-accent mb-8 opacity-80">
             {slide.subtitle}
           </p>
         )}
 
-        <h2 data-animate className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-10 leading-tight tracking-tight">
+        <h2 data-animate className="font-serif text-headline font-bold text-text-primary mb-10 leading-tight tracking-tight">
           {slide.title}
         </h2>
 
         {slide.content && (
-          <p data-animate className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
+          <p data-animate className="text-base md:text-lg text-text-secondary leading-relaxed max-w-2xl mx-auto font-light">
             {slide.content}
           </p>
         )}
@@ -66,7 +66,7 @@ export function ContentSlide({ slide, isActive }: ContentSlideProps) {
               <li
                 key={`${item}-${index}`}
                 data-animate
-                className="glass rounded-xl px-5 py-4 text-[15px] md:text-base text-text-secondary"
+                className="rounded-lg px-5 py-3.5 text-[15px] md:text-sm text-text-secondary border border-white/[0.04] bg-white/[0.02] transition-colors hover:border-white/[0.08]"
               >
                 {item}
               </li>

@@ -79,7 +79,7 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
         {tiers.map((tier) => (
           <div
             key={tier.tier}
-            className="usecase-tier glass glass-depth rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all"
+            className="usecase-tier glass rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all"
           >
             <div className="flex items-baseline gap-2 mb-1">
               <span className="font-mono text-xs font-bold" style={{ color: tier.color }}>
@@ -106,7 +106,7 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
         ))}
       </div>
 
-      <div className="text-center mt-6 glass glass-depth rounded-lg px-4 py-3 mx-auto max-w-lg">
+      <div className="text-center mt-6 glass rounded-lg px-4 py-3 mx-auto max-w-lg">
         <p className="text-sm md:text-xs font-mono text-text-secondary">
           Score: <span className="text-accent">Impact (1-5)</span> x <span className="text-accent">Feasibility (1-5)</span> = Priority
         </p>
