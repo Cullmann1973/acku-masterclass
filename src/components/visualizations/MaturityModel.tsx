@@ -86,7 +86,7 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
 
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
-      <div className="flex flex-col-reverse gap-1.5">
+      <div className="flex flex-col-reverse gap-1">
         {levels.map((level, i) => (
           <div
             key={level.level}
@@ -95,7 +95,7 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
             {/* Desktop: pyramid card */}
             <div className="hidden md:block" style={{ width: desktopWidths[i] }}>
               <div
-                className="relative rounded-lg px-5 py-3 border transition-all hover:border-white/[0.12] group"
+                className="relative rounded-md px-4 py-2 border transition-all hover:border-white/[0.12] group"
                 style={{
                   borderColor: `${level.accentColor}15`,
                   background: `linear-gradient(135deg, ${level.accentColor}08 0%, transparent 70%)`,
@@ -103,24 +103,27 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
               >
                 {/* Left accent bar */}
                 <div
-                  className="absolute left-0 top-2 bottom-2 w-[2px] rounded-full"
+                  className="absolute left-0 top-1.5 bottom-1.5 w-[2px] rounded-full"
                   style={{ background: `${level.accentColor}60` }}
                 />
-                <div className="flex items-baseline gap-3 mb-1 pl-3">
+                <div className="flex items-baseline gap-2.5 pl-2.5">
                   <span
-                    className="font-mono text-2xl font-bold tracking-tighter"
+                    className="font-mono text-xl font-bold tracking-tighter"
                     style={{ color: level.accentColor, opacity: 0.7 }}
                   >
                     {level.level}
                   </span>
-                  <span className="font-serif text-lg text-text-primary font-semibold">
+                  <span className="font-serif text-base text-text-primary font-semibold">
                     {level.name}
                   </span>
+                  <span className="text-xs text-text-secondary font-light ml-1 hidden lg:inline">
+                    {level.description}
+                  </span>
                 </div>
-                <p className="text-sm text-text-secondary leading-relaxed pl-3 font-light">
+                <p className="text-xs text-text-secondary leading-snug pl-2.5 lg:hidden">
                   {level.description}
                 </p>
-                <p className="text-[11px] font-mono text-text-tertiary mt-1 pl-3 tracking-wide">
+                <p className="text-[10px] font-mono text-text-tertiary pl-2.5 tracking-wide">
                   {level.detail}
                 </p>
               </div>
