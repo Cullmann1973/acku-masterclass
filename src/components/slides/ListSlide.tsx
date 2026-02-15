@@ -112,8 +112,8 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
         className="w-full h-full object-cover"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/45 to-black/75" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/25" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/55" />
     </div>
   ) : null;
 
@@ -138,7 +138,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
                   key={i}
                   data-list-stagger
                   data-list-side="left"
-                  className="glass rounded-lg px-4 md:px-5 py-3 border border-white/[0.05]"
+                  className="glass glass-depth rounded-lg px-4 md:px-5 py-3 border border-white/[0.05]"
                 >
                   <ItemText item={item} />
                 </div>
@@ -150,7 +150,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
 
         {layout === 'comparison' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-8">
-            <div className="glass-strong rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
+            <div className="glass-strong glass-depth rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
               {leftColumn.map((item, i) => (
                 <div
                   key={i}
@@ -162,7 +162,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
                 </div>
               ))}
             </div>
-            <div className="glass-strong rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
+            <div className="glass-strong glass-depth rounded-xl p-4 md:p-5 space-y-3 border border-white/[0.07]">
               {rightColumn.map((item, i) => (
                 <div
                   key={i}
@@ -188,7 +188,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
               <div
                 key={i}
                 data-list-stagger
-                className="glass rounded-xl border border-white/[0.06] p-4 md:p-5 min-h-[145px]"
+                className="glass glass-depth rounded-xl border border-white/[0.06] p-4 md:p-5 min-h-[145px]"
               >
                 <div className="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center mb-3">
                   <span className="text-accent text-lg leading-none">{iconSymbols[i % iconSymbols.length]}</span>
@@ -210,7 +210,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
               <div
                 key={i}
                 data-list-stagger
-                className="glass rounded-lg px-5 py-3 border border-white/[0.04] transition-colors hover:border-white/10"
+                className="glass glass-depth rounded-lg px-5 py-3 border border-white/[0.04] transition-colors hover:border-white/10"
               >
                 <ItemText item={item} />
               </div>

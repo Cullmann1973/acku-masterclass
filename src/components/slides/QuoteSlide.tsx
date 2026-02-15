@@ -90,12 +90,12 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/82 via-black/58 to-black/86" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/76 via-black/18 to-black/44" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/55" />
         </>
       )}
 
-      <div className="relative z-10 w-full max-w-5xl text-center">
+      <div className={`relative z-10 w-full max-w-5xl text-center ${slide.atmosphereImage ? 'text-shadow-image' : ''}`}>
         {slide.title && (
           <p className="quote-heading font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8">
             {slide.title}

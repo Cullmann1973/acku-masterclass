@@ -53,8 +53,8 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         className="absolute inset-0 w-full h-full object-cover"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-black/78 via-black/55 to-black/82" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/55" />
     </>
   ) : null;
 
@@ -64,20 +64,20 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         {imageLayer}
         <div className="relative z-10 w-full max-w-5xl text-center">
           {slide.title && (
-            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8">
+            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8 text-shadow-image">
               {slide.title}
             </p>
           )}
-          <blockquote data-story-animate className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8">
+          <blockquote data-story-animate className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8 text-shadow-image">
             {quoteText}
           </blockquote>
           {slide.attribution && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary text-shadow-image">
               {slide.attribution}
             </p>
           )}
           {slide.content && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed text-shadow-image">
               {slide.content}
             </p>
           )}
@@ -124,23 +124,23 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         {imageLayer}
         <div className="relative z-10 w-full max-w-5xl text-center">
           {slide.title && (
-            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.22em] uppercase text-accent mb-4">
+            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.22em] uppercase text-accent mb-4 text-shadow-image">
               {slide.title}
             </p>
           )}
-          <div data-story-animate className="font-mono text-6xl md:text-8xl lg:text-9xl font-bold text-accent glow-text mb-6">
+          <div data-story-animate className="font-mono text-6xl md:text-8xl lg:text-9xl font-bold text-accent glow-text mb-6 text-shadow-image">
             {spotlight}
           </div>
-          <blockquote data-story-animate className="font-serif text-xl md:text-3xl text-text-primary leading-relaxed max-w-4xl mx-auto mb-6">
+          <blockquote data-story-animate className="font-serif text-xl md:text-3xl text-text-primary leading-relaxed max-w-4xl mx-auto mb-6 text-shadow-image">
             {quoteText}
           </blockquote>
           {slide.attribution && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary mb-4">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary mb-4 text-shadow-image">
               {slide.attribution}
             </p>
           )}
           {slide.content && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto leading-relaxed">
+            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto leading-relaxed text-shadow-image">
               {slide.content}
             </p>
           )}

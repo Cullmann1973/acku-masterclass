@@ -94,7 +94,7 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
             {slide.items.map((item, i) => (
               <div
                 key={i}
-                className="interaction-item flex items-start gap-3 glass rounded-lg px-4 py-3"
+                className="interaction-item flex items-start gap-3 glass glass-depth rounded-lg px-4 py-3"
               >
                 <span className="w-5 h-5 rounded-md bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
                   <span className="font-mono text-xs text-accent font-bold">{i + 1}</span>
