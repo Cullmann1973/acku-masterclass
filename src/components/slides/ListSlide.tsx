@@ -103,7 +103,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
   }, [isActive]);
 
   const imagePanel = slide.atmosphereImage ? (
-    <div className="relative rounded-xl overflow-hidden border border-white/[0.06] min-h-[240px] md:min-h-[360px]">
+    <div className="relative rounded-xl overflow-hidden border border-white/[0.06] min-h-[160px] md:min-h-[200px]">
       <img
         src={slide.atmosphereImage}
         alt={slide.atmosphereAlt || slide.title || 'Atmosphere'}
@@ -181,7 +181,7 @@ export function ListSlide({ slide, isActive }: ListSlideProps) {
         )}
 
         {layout === 'icon-grid' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 mb-4">
             {items.map((item, i) => (
               <div
                 key={i}
