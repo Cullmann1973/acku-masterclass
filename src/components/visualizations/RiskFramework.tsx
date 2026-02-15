@@ -87,15 +87,15 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
           >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">{risk.icon}</span>
-              <h4 className="font-mono text-xs font-bold" style={{ color: risk.color }}>
+              <h4 className="font-mono text-[15px] md:text-xs font-bold" style={{ color: risk.color }}>
                 {risk.category}
               </h4>
             </div>
             
             <ul className="space-y-1 mb-2">
               {risk.risks.map((r, j) => (
-                <li key={j} className="text-xs text-text-secondary flex items-start gap-1.5">
-                  <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: risk.color }} />
+                <li key={j} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
+                  <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0" style={{ background: risk.color }} />
                   {r}
                 </li>
               ))}
@@ -103,7 +103,7 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
 
             {expandedIndex === i && (
               <div className="border-t border-white/5 pt-2 mt-2">
-                <p className="text-xs font-mono" style={{ color: risk.color, opacity: 0.8 }}>
+                <p className="text-sm md:text-xs font-mono" style={{ color: risk.color, opacity: 0.8 }}>
                   Prevention: {risk.prevention}
                 </p>
               </div>
@@ -112,8 +112,8 @@ export function RiskFramework({ isActive }: RiskFrameworkProps) {
         ))}
       </div>
 
-      <p className="text-center text-xs text-text-tertiary mt-4 font-mono">
-        Click any category to expand prevention strategies
+      <p className="text-center text-sm md:text-xs text-text-tertiary mt-4 font-mono">
+        Tap any category to expand prevention strategies
       </p>
     </div>
   );

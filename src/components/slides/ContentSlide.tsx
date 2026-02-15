@@ -42,28 +42,32 @@ export function ContentSlide({ slide, isActive }: ContentSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-8">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-10">
       <div className="max-w-3xl w-full text-center">
         {slide.subtitle && (
-          <p data-animate className="font-mono text-xs tracking-[0.2em] uppercase text-accent mb-6">
+          <p data-animate className="font-mono text-sm tracking-[0.25em] uppercase text-accent mb-8 font-medium">
             {slide.subtitle}
           </p>
         )}
 
-        <h2 data-animate className="font-serif text-3xl md:text-5xl font-bold text-text-primary mb-8 leading-tight">
+        <h2 data-animate className="font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-10 leading-tight tracking-tight">
           {slide.title}
         </h2>
 
         {slide.content && (
-          <p data-animate className="text-base md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
+          <p data-animate className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mx-auto">
             {slide.content}
           </p>
         )}
 
         {slide.items && slide.items.length > 0 && (
-          <ul className="mt-8 space-y-3 text-left max-w-2xl mx-auto">
+          <ul className="mt-10 space-y-3 text-left max-w-2xl mx-auto">
             {slide.items.map((item, index) => (
-              <li key={`${item}-${index}`} data-animate className="glass glass-depth rounded-lg px-4 py-3 text-[15px] md:text-sm text-text-secondary">
+              <li
+                key={`${item}-${index}`}
+                data-animate
+                className="glass rounded-xl px-5 py-4 text-[15px] md:text-base text-text-secondary"
+              >
                 {item}
               </li>
             ))}

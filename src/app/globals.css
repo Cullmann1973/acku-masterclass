@@ -3,14 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #0a0a0f;
+  --bg-primary: #08080d;
+  --bg-elevated: #0c0c14;
   --accent: #00d4aa;
   --accent-blue: #3b82f6;
   --accent-glow: rgba(0, 212, 170, 0.3);
-  --text-primary: #eee4d7;
-  --text-secondary: #ddd0be;
-  --text-tertiary: #c4b39d;
+  --text-primary: #f0ebe4;
+  --text-secondary: #d8cfc2;
+  --text-tertiary: #b8a994;
   --border: #1a1a2e;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(255, 255, 255, 0.12);
 }
 
 * {
@@ -22,7 +25,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: linear-gradient(145deg, #0a0a0f 0%, #0b1020 55%, #0d1117 100%);
+  background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,20 +37,70 @@ body {
   color: #ffffff;
 }
 
+/* ============================================
+   GLASS SYSTEM - Layered depth, not flat
+   Inspired by Linear/Raycast card depth
+   ============================================ */
 @layer utilities {
   .glass {
-    background: rgba(15, 15, 25, 0.72);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.10);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.04) 0%,
+        rgba(255, 255, 255, 0.01) 30%,
+        transparent 60%,
+        rgba(0, 0, 0, 0.06) 100%
+      ),
+      rgba(14, 14, 22, 0.78);
+    backdrop-filter: blur(24px) saturate(1.2);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+      0 8px 32px rgba(0, 0, 0, 0.24),
+      0 2px 8px rgba(0, 0, 0, 0.16);
     color: var(--text-primary);
   }
 
   .glass-strong {
-    background: rgba(12, 15, 24, 0.86);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.05) 0%,
+        rgba(255, 255, 255, 0.015) 25%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.10) 100%
+      ),
+      rgba(10, 12, 20, 0.90);
+    backdrop-filter: blur(32px) saturate(1.3);
+    -webkit-backdrop-filter: blur(32px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+      0 12px 40px rgba(0, 0, 0, 0.30),
+      0 4px 12px rgba(0, 0, 0, 0.20);
+    color: var(--text-primary);
+  }
+
+  /* Premium glass with colored accent glow on top edge */
+  .glass-premium {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.02) 20%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.08) 100%
+      ),
+      rgba(12, 12, 20, 0.82);
+    backdrop-filter: blur(28px) saturate(1.25);
+    -webkit-backdrop-filter: blur(28px) saturate(1.25);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+      0 -1px 0 0 rgba(0, 212, 170, 0.12) inset,
+      0 16px 48px rgba(0, 0, 0, 0.28),
+      0 4px 16px rgba(0, 0, 0, 0.18);
     color: var(--text-primary);
   }
 
@@ -63,42 +116,73 @@ body {
   }
 
   .glow-accent {
-    box-shadow: 0 0 28px rgba(0, 212, 170, 0.14), 0 0 58px rgba(0, 212, 170, 0.05);
+    box-shadow:
+      0 0 32px rgba(0, 212, 170, 0.18),
+      0 0 64px rgba(0, 212, 170, 0.06),
+      0 8px 32px rgba(0, 0, 0, 0.20);
   }
 
   .glow-text {
-    text-shadow: 0 0 36px rgba(0, 212, 170, 0.28);
+    text-shadow:
+      0 0 40px rgba(0, 212, 170, 0.35),
+      0 0 80px rgba(0, 212, 170, 0.12);
   }
 
+  /* Heavy text shadow for text over images */
   .text-shadow-image {
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    text-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.90),
+      0 4px 24px rgba(0, 0, 0, 0.60),
+      0 0 4px rgba(0, 0, 0, 0.95);
   }
 
-  .glass-depth {
-    background-image: linear-gradient(
+  /* Subtle gradient border effect via pseudo-element */
+  .border-gradient {
+    position: relative;
+  }
+  .border-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      transparent 40%,
-      rgba(0, 0, 0, 0.08) 100%
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      rgba(255, 255, 255, 0.02) 100%
     );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
 }
 
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
 .progress-bar {
   background: linear-gradient(90deg, #00d4aa, #3b82f6);
-  box-shadow: 0 0 12px rgba(0, 212, 170, 0.5);
+  box-shadow: 0 0 16px rgba(0, 212, 170, 0.5), 0 0 4px rgba(0, 212, 170, 0.8);
   transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ============================================
+   NOISE TEXTURE OVERLAY
+   ============================================ */
 .noise-bg::before {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.025;
+  opacity: 0.028;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   pointer-events: none;
 }
 
+/* ============================================
+   PRESENTATION FRAME
+   ============================================ */
 .presentation-stage {
   position: fixed;
   inset: 0;
@@ -134,6 +218,9 @@ body {
   margin: 0 auto;
 }
 
+/* ============================================
+   DESKTOP 16:9 FRAME - Premium bezel
+   ============================================ */
 @media (min-width: 768px) {
   .presentation-shell {
     padding: 1rem;
@@ -145,12 +232,19 @@ body {
     max-height: 100vh;
     aspect-ratio: 16 / 9;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(10, 10, 15, 0.22);
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(8, 8, 13, 0.28);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 32px 80px rgba(0, 0, 0, 0.50),
+      0 12px 32px rgba(0, 0, 0, 0.30),
+      0 0 120px rgba(0, 212, 170, 0.02);
   }
 }
 
+/* ============================================
+   MOBILE OVERRIDES
+   ============================================ */
 @media (max-width: 767px) {
   .presentation-root {
     border-radius: 0;
@@ -160,15 +254,20 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding-top: 3.2rem;
-    padding-bottom: 4.4rem;
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
 
+  /* Prevent horizontal overflow on any slide */
+  .presentation-slide {
+    overflow-x: hidden;
+  }
+
   .presentation-root .text-xs {
     font-size: 0.8rem;
-    line-height: 1.4;
+    line-height: 1.45;
   }
 
   .presentation-root .text-sm {
@@ -180,4 +279,16 @@ body {
   .presentation-root li:not([class*="text-"]) {
     font-size: max(0.938rem, 15px);
   }
+}
+
+/* ============================================
+   ANIMATION UTILITIES
+   ============================================ */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(0, 212, 170, 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 16px rgba(0, 212, 170, 0.7); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }

@@ -45,6 +45,8 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
   }, [isActive]);
 
   const quoteText = slide.quote ?? '';
+
+  // Heavy triple-layer overlay for text over images
   const imageLayer = slide.atmosphereImage ? (
     <>
       <img
@@ -53,22 +55,24 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
         className="absolute inset-0 w-full h-full object-cover"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/65 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/55" />
+      <div className="absolute inset-0 bg-black/10" />
     </>
   ) : null;
 
+  // QUOTE-FULL layout
   if (layout === 'quote-full') {
     return (
-      <div ref={containerRef} className="h-full min-h-full px-5 md:px-8 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
+      <div ref={containerRef} className="h-full min-h-full px-5 md:px-10 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
         {imageLayer}
         <div className="relative z-10 w-full max-w-5xl text-center">
           {slide.title && (
-            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8 text-shadow-image">
+            <p data-story-animate className="font-mono text-[13px] md:text-sm tracking-[0.3em] uppercase text-accent mb-10 text-shadow-image font-medium">
               {slide.title}
             </p>
           )}
-          <blockquote data-story-animate className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8 text-shadow-image">
+          <blockquote data-story-animate className="font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.3] mb-10 text-shadow-image">
             {quoteText}
           </blockquote>
           {slide.attribution && (
@@ -77,7 +81,7 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
             </p>
           )}
           {slide.content && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed text-shadow-image">
+            <p data-story-animate className="text-[15px] md:text-lg text-text-secondary max-w-3xl mx-auto mt-6 leading-relaxed text-shadow-image">
               {slide.content}
             </p>
           )}
@@ -86,31 +90,32 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
     );
   }
 
+  // SPLIT layout
   if (layout === 'split') {
     return (
-      <div ref={containerRef} className="h-full min-h-full px-5 md:px-8 py-16 md:py-10 flex items-center justify-center">
-        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
+      <div ref={containerRef} className="h-full min-h-full px-5 md:px-10 py-16 md:py-10 flex items-center justify-center">
+        <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
           <div className="relative z-10">
             {slide.title && (
-              <h3 data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.2em] uppercase text-accent mb-6">
+              <h3 data-story-animate className="font-mono text-[13px] md:text-sm tracking-[0.25em] uppercase text-accent mb-8 font-medium">
                 {slide.title}
               </h3>
             )}
-            <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-4xl text-text-primary leading-relaxed mb-6">
+            <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-4xl text-text-primary leading-[1.25] mb-8">
               {quoteText}
             </blockquote>
             {slide.attribution && (
-              <p data-story-animate className="text-[15px] md:text-sm text-text-secondary mb-4">
+              <p data-story-animate className="text-[15px] md:text-base text-text-secondary mb-4">
                 {slide.attribution}
               </p>
             )}
             {slide.content && (
-              <p data-story-animate className="text-[15px] md:text-base text-text-secondary leading-relaxed">
+              <p data-story-animate className="text-[15px] md:text-lg text-text-secondary leading-relaxed">
                 {slide.content}
               </p>
             )}
           </div>
-          <div data-story-animate className="relative overflow-hidden rounded-2xl border border-white/10 min-h-[260px] md:min-h-[400px]">
+          <div data-story-animate className="relative overflow-hidden rounded-2xl border border-white/[0.08] min-h-[260px] md:min-h-[400px]">
             {imageLayer}
           </div>
         </div>
@@ -118,20 +123,21 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
     );
   }
 
+  // NUMBER-SPOTLIGHT layout
   if (layout === 'number-spotlight') {
     return (
-      <div ref={containerRef} className="h-full min-h-full px-5 md:px-8 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
+      <div ref={containerRef} className="h-full min-h-full px-5 md:px-10 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
         {imageLayer}
         <div className="relative z-10 w-full max-w-5xl text-center">
           {slide.title && (
-            <p data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.22em] uppercase text-accent mb-4 text-shadow-image">
+            <p data-story-animate className="font-mono text-[13px] md:text-sm tracking-[0.25em] uppercase text-accent mb-5 text-shadow-image font-medium">
               {slide.title}
             </p>
           )}
-          <div data-story-animate className="font-mono text-6xl md:text-8xl lg:text-9xl font-bold text-accent glow-text mb-6 text-shadow-image">
+          <div data-story-animate className="font-mono text-6xl md:text-8xl lg:text-9xl font-bold text-accent glow-text mb-8 text-shadow-image tracking-tight">
             {spotlight}
           </div>
-          <blockquote data-story-animate className="font-serif text-xl md:text-3xl text-text-primary leading-relaxed max-w-4xl mx-auto mb-6 text-shadow-image">
+          <blockquote data-story-animate className="font-serif text-xl md:text-3xl text-text-primary leading-relaxed max-w-4xl mx-auto mb-8 text-shadow-image">
             {quoteText}
           </blockquote>
           {slide.attribution && (
@@ -140,7 +146,7 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
             </p>
           )}
           {slide.content && (
-            <p data-story-animate className="text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto leading-relaxed text-shadow-image">
+            <p data-story-animate className="text-[15px] md:text-lg text-text-secondary max-w-3xl mx-auto leading-relaxed text-shadow-image">
               {slide.content}
             </p>
           )}
@@ -149,32 +155,38 @@ export function StorySlide({ slide, isActive }: StorySlideProps) {
     );
   }
 
+  // DEFAULT layout - editorial quote with large decorative mark
   return (
-    <div ref={containerRef} className="h-full min-h-full flex items-center justify-center px-5 md:px-8 py-16 md:py-10">
+    <div ref={containerRef} className="h-full min-h-full flex items-center justify-center px-5 md:px-10 py-16 md:py-10">
       <div className="max-w-4xl relative">
-        <div className="absolute -top-8 -left-4 md:-top-12 md:-left-8 opacity-70" aria-hidden="true">
-          <span className="font-serif text-[110px] md:text-[170px] text-accent leading-none select-none">&ldquo;</span>
+        <div className="absolute -top-10 -left-4 md:-top-14 md:-left-8 opacity-50" aria-hidden="true">
+          <span
+            className="font-serif text-[130px] md:text-[200px] leading-none select-none"
+            style={{ color: 'var(--accent)', filter: 'blur(0.5px)' }}
+          >
+            &ldquo;
+          </span>
         </div>
 
         {slide.title && (
-          <h3 data-story-animate className="font-mono text-[12px] md:text-xs tracking-[0.2em] uppercase text-accent mb-6 relative z-10">
+          <h3 data-story-animate className="font-mono text-[13px] md:text-sm tracking-[0.25em] uppercase text-accent mb-8 relative z-10 font-medium">
             {slide.title}
           </h3>
         )}
 
-        <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-4xl text-text-primary leading-relaxed mb-6 relative z-10">
+        <blockquote data-story-animate className="font-serif text-2xl md:text-3xl lg:text-[2.75rem] text-text-primary leading-[1.3] mb-8 relative z-10">
           {quoteText}
         </blockquote>
 
         {slide.attribution && (
-          <div data-story-animate className="flex items-center gap-3 relative z-10">
-            <div className="w-8 h-[1px] bg-accent" />
-            <p className="text-[15px] md:text-sm text-text-secondary font-mono">{slide.attribution}</p>
+          <div data-story-animate className="flex items-center gap-4 relative z-10">
+            <div className="w-10 h-[1px] bg-accent/50" />
+            <p className="text-[15px] md:text-base text-text-secondary font-mono">{slide.attribution}</p>
           </div>
         )}
 
         {slide.content && (
-          <p data-story-animate className="text-[15px] md:text-base text-text-secondary mt-6 relative z-10 leading-relaxed">
+          <p data-story-animate className="text-[15px] md:text-lg text-text-secondary mt-8 relative z-10 leading-relaxed">
             {slide.content}
           </p>
         )}

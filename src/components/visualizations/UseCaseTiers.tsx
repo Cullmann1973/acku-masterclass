@@ -89,11 +89,11 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
                 {tier.label}
               </span>
             </div>
-            <p className="text-xs text-text-tertiary mb-4">{tier.sublabel}</p>
+            <p className="text-sm md:text-xs text-text-tertiary mb-4">{tier.sublabel}</p>
 
             <ul className="space-y-2">
               {tier.items.map((item, i) => (
-                <li key={i} className="usecase-item flex items-start gap-2 text-sm text-text-secondary">
+                <li key={i} className="usecase-item flex items-start gap-2 text-[15px] md:text-sm text-text-secondary">
                   <span
                     className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
                     style={{ background: tier.color }}
@@ -106,11 +106,11 @@ export function UseCaseTiers({ isActive }: UseCaseTiersProps) {
         ))}
       </div>
 
-      <div className="text-center mt-6 glass glass-depth rounded-lg px-4 py-3 inline-block mx-auto">
-        <p className="text-xs font-mono text-text-secondary">
+      <div className="text-center mt-6 glass glass-depth rounded-lg px-4 py-3 mx-auto max-w-lg">
+        <p className="text-sm md:text-xs font-mono text-text-secondary">
           Score: <span className="text-accent">Impact (1-5)</span> x <span className="text-accent">Feasibility (1-5)</span> = Priority
         </p>
-        <p className="text-xs text-text-tertiary mt-1">
+        <p className="text-sm md:text-xs text-text-tertiary mt-1">
           Above 15 = shortlist. Above 20 = start here.
         </p>
       </div>

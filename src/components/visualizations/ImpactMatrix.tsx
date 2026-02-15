@@ -103,16 +103,16 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
   return (
     <div ref={containerRef} className="w-full max-w-4xl mx-auto px-4">
       <div className="relative">
-        {/* Axis labels */}
-        <div className="flex justify-between mb-2 px-2">
+        {/* Axis labels - hidden on mobile */}
+        <div className="hidden md:flex justify-between mb-2 px-2">
           <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Low Effort</span>
           <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">High Effort</span>
         </div>
 
-        {/* Matrix grid */}
-        <div className="grid grid-cols-2 gap-3 relative">
-          {/* Vertical axis label */}
-          <div className="absolute -left-8 top-0 bottom-0 flex flex-col justify-between items-center py-2">
+        {/* Matrix grid - single column on mobile, 2 cols on desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 relative">
+          {/* Vertical axis label - hidden on mobile */}
+          <div className="hidden md:flex absolute -left-8 top-0 bottom-0 flex-col justify-between items-center py-2">
             <span className="text-xs font-mono text-text-tertiary writing-mode-vertical rotate-180" style={{ writingMode: 'vertical-lr', transform: 'rotate(180deg)' }}>
               High Impact
             </span>
@@ -124,7 +124,7 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
           {quadrants.map((q) => (
             <div
               key={q.id}
-              className="matrix-quad rounded-xl p-4 border border-white/5 min-h-[160px] transition-all hover:border-white/10"
+              className="matrix-quad rounded-xl p-4 border border-white/5 min-h-0 md:min-h-[160px] transition-all hover:border-white/10"
               style={{ background: q.bgColor }}
             >
               <div className="flex items-baseline gap-2 mb-3">
@@ -135,7 +135,7 @@ export function ImpactMatrix({ isActive }: ImpactMatrixProps) {
               </div>
               <ul className="space-y-1.5">
                 {q.items.map((item, i) => (
-                  <li key={i} className="matrix-item flex items-start gap-2 text-sm text-text-secondary">
+                  <li key={i} className="matrix-item flex items-start gap-2 text-[15px] md:text-sm text-text-secondary">
                     <span className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: q.color }} />
                     {item}
                   </li>

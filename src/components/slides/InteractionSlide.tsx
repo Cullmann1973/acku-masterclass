@@ -61,7 +61,7 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-8">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-4 md:px-8">
       {/* Different background treatment for interaction slides */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] via-transparent to-transparent pointer-events-none" />
 
@@ -75,7 +75,7 @@ export function InteractionSlide({ slide, isActive }: InteractionSlideProps) {
         </div>
 
         {/* Title */}
-        <h2 className="interaction-title font-serif text-2xl md:text-4xl font-bold text-text-primary mb-6">
+        <h2 className="interaction-title font-serif text-xl md:text-4xl font-bold text-text-primary mb-6">
           {slide.title}
         </h2>
 

@@ -163,17 +163,17 @@ export function AckuPipeline({ isActive }: AckuPipelineProps) {
                 <h3 className="font-mono text-base font-bold" style={{ color: phase.color }}>
                   {phase.name}
                 </h3>
-                <span className="text-xs font-mono text-text-tertiary ml-auto">{phase.timeline}</span>
+                <span className="text-sm font-mono text-text-tertiary ml-auto">{phase.timeline}</span>
               </div>
               <ul className="space-y-1 mb-2">
                 {phase.items.slice(0, 3).map((item, j) => (
-                  <li key={j} className="text-xs text-text-secondary flex items-start gap-1.5">
-                    <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: phase.color }} />
+                  <li key={j} className="text-[15px] text-text-secondary flex items-start gap-1.5">
+                    <span className="w-1 h-1 rounded-full mt-2 shrink-0" style={{ background: phase.color }} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="text-xs font-mono" style={{ color: phase.color, opacity: 0.7 }}>
+              <p className="text-sm font-mono" style={{ color: phase.color, opacity: 0.7 }}>
                 {'\u2192'} {phase.outputs}
               </p>
             </div>

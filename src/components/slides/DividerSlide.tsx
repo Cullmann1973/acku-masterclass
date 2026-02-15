@@ -29,6 +29,7 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
       const title = containerRef.current?.querySelector('.divider-title');
       const content = containerRef.current?.querySelector('.divider-content');
       const number = containerRef.current?.querySelector('.divider-number');
+      const glow = containerRef.current?.querySelector('.divider-glow');
 
       const timeline = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
@@ -41,11 +42,20 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
         );
       }
 
+      if (glow) {
+        timeline.fromTo(
+          glow,
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 1.2, ease: 'power1.out' },
+          0
+        );
+      }
+
       if (number) {
         timeline.fromTo(
           number,
           { opacity: 0, x: 60, scale: 1.08 },
-          { opacity: 0.12, x: 0, scale: 1, duration: 0.75 },
+          { opacity: 0.08, x: 0, scale: 1, duration: 0.75 },
           0.18
         );
       }
@@ -75,56 +85,87 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-8 relative overflow-hidden">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-12 relative overflow-hidden">
+      {/* Module gradient background */}
       <div
         className="divider-panel absolute inset-0"
-        style={{ background: theme?.gradient ?? 'linear-gradient(145deg, #0a0a0f 0%, #0b1020 55%, #0d1117 100%)' }}
+        style={{ background: theme?.gradient ?? 'linear-gradient(145deg, #08080d 0%, #0b1020 55%, #0d1117 100%)' }}
       />
-      <div className="absolute inset-0 bg-black/35" />
 
+      {/* Dark overlay for depth */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      {/* Colored ambient glow - positioned for drama */}
       <div
-        className="divider-number absolute font-mono font-bold select-none"
+        className="divider-glow absolute rounded-full"
         style={{
-          fontSize: 'clamp(200px, 40vw, 500px)',
+          width: '600px',
+          height: '600px',
+          background: `radial-gradient(circle, ${moduleColor}14 0%, ${moduleColor}06 40%, transparent 70%)`,
+          top: '10%',
+          left: '-5%',
+          filter: 'blur(60px)',
+        }}
+      />
+
+      {/* Giant watermark number */}
+      <div
+        className="divider-number absolute font-mono font-black select-none"
+        style={{
+          fontSize: 'clamp(220px, 42vw, 550px)',
           color: moduleColor,
           right: '-5%',
-          bottom: '-10%',
-          lineHeight: 1,
+          bottom: '-12%',
+          lineHeight: 0.85,
+          letterSpacing: '-0.04em',
         }}
       >
         {slide.module}
       </div>
 
-      <div className="relative z-10 max-w-4xl">
-        <div className="divider-subtitle flex items-center gap-3 mb-5">
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl w-full">
+        {/* Module badge */}
+        <div className="divider-subtitle flex items-center gap-4 mb-6">
           <span
-            className="font-mono text-sm md:text-base tracking-[0.3em] uppercase font-bold"
-            style={{ color: moduleColor }}
+            className="font-mono text-sm md:text-base tracking-[0.35em] uppercase font-bold"
+            style={{ color: moduleColor, textShadow: `0 0 24px ${moduleColor}50` }}
           >
             Module {slide.module}
           </span>
           {slide.subtitle && (
             <>
-              <span className="text-text-tertiary">|</span>
-              <span className="font-mono text-xs md:text-sm text-text-tertiary">{slide.subtitle}</span>
+              <span
+                className="w-6 h-[1px]"
+                style={{ background: `${moduleColor}50` }}
+              />
+              <span className="font-mono text-xs md:text-sm text-text-tertiary tracking-wider">{slide.subtitle}</span>
             </>
           )}
         </div>
 
+        {/* Accent bar - gradient fade */}
         <div
-          className="divider-bar origin-left h-[3px] w-28 mb-8 rounded-full"
-          style={{ background: `linear-gradient(90deg, ${moduleColor}, ${moduleColor}88)` }}
+          className="divider-bar origin-left h-[3px] w-32 mb-10 rounded-full"
+          style={{
+            background: `linear-gradient(90deg, ${moduleColor}, ${moduleColor}40)`,
+            boxShadow: `0 0 20px ${moduleColor}30`,
+          }}
         />
 
+        {/* Title - editorial scale */}
         <h2
-          className="divider-title font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-bold text-text-primary leading-[1.1] mb-6"
-          style={{ textShadow: `0 4px 24px ${moduleColor}22` }}
+          className="divider-title font-serif text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-text-primary leading-[1.05] mb-8 tracking-tight"
+          style={{
+            textShadow: `0 4px 32px ${moduleColor}18, 0 2px 8px rgba(0,0,0,0.5)`,
+          }}
         >
           {slide.title}
         </h2>
 
+        {/* Description */}
         {slide.content && (
-          <p className="divider-content text-base md:text-lg text-text-secondary max-w-xl leading-relaxed">
+          <p className="divider-content text-lg md:text-xl text-text-secondary max-w-xl leading-relaxed">
             {slide.content}
           </p>
         )}

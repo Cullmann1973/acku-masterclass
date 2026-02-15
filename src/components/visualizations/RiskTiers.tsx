@@ -87,23 +87,23 @@ export function RiskTiers({ isActive }: RiskTiersProps) {
                   <h4 className="font-serif text-base font-bold" style={{ color: tier.color }}>
                     {tier.name}
                   </h4>
-                  <p className="text-xs text-text-secondary">{tier.description}</p>
+                  <p className="text-[15px] md:text-xs text-text-secondary">{tier.description}</p>
                 </div>
               </div>
 
               {/* Details */}
-              <div className="flex gap-4 md:gap-6 md:ml-auto">
+              <div className="flex flex-wrap gap-4 md:gap-6 md:ml-auto">
                 <div>
-                  <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Approval</span>
-                  <p className="text-xs text-text-secondary mt-0.5">{tier.approval}</p>
+                  <span className="text-sm md:text-xs font-mono text-text-tertiary uppercase tracking-wider">Approval</span>
+                  <p className="text-sm md:text-xs text-text-secondary mt-0.5">{tier.approval}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Review</span>
-                  <p className="text-xs text-text-secondary mt-0.5">{tier.review}</p>
+                  <span className="text-sm md:text-xs font-mono text-text-tertiary uppercase tracking-wider">Review</span>
+                  <p className="text-sm md:text-xs text-text-secondary mt-0.5">{tier.review}</p>
                 </div>
                 <div>
-                  <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Turnaround</span>
-                  <p className="text-xs font-mono mt-0.5" style={{ color: tier.color }}>{tier.turnaround}</p>
+                  <span className="text-sm md:text-xs font-mono text-text-tertiary uppercase tracking-wider">Turnaround</span>
+                  <p className="text-sm md:text-xs font-mono mt-0.5" style={{ color: tier.color }}>{tier.turnaround}</p>
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@ export function RiskTiers({ isActive }: RiskTiersProps) {
         ))}
       </div>
 
-      <p className="text-center text-xs text-text-tertiary mt-4 italic">
+      <p className="text-center text-sm md:text-xs text-text-tertiary mt-4 italic">
         Key principle: Make compliance easy. If approval takes 6 weeks, people go around it.
       </p>
     </div>

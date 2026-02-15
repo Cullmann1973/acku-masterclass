@@ -80,9 +80,11 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
     if (!isActive) hasAnimated.current = false;
   }, [isActive]);
 
+  const hasImage = !!slide.atmosphereImage;
+
   return (
-    <div ref={containerRef} className="h-full min-h-full px-5 md:px-8 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
-      {slide.atmosphereImage && (
+    <div ref={containerRef} className="h-full min-h-full px-5 md:px-10 py-16 md:py-10 relative overflow-hidden flex items-center justify-center">
+      {hasImage && (
         <>
           <img
             src={slide.atmosphereImage}
@@ -90,19 +92,21 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/60 to-black/85" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/55" />
+          {/* Heavy triple-layer overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/65 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/55" />
+          <div className="absolute inset-0 bg-black/10" />
         </>
       )}
 
-      <div className={`relative z-10 w-full max-w-5xl text-center ${slide.atmosphereImage ? 'text-shadow-image' : ''}`}>
+      <div className={`relative z-10 w-full max-w-5xl text-center ${hasImage ? 'text-shadow-image' : ''}`}>
         {slide.title && (
-          <p className="quote-heading font-mono text-[12px] md:text-xs tracking-[0.26em] uppercase text-accent mb-8">
+          <p className="quote-heading font-mono text-[13px] md:text-sm tracking-[0.3em] uppercase text-accent mb-10 font-medium">
             {slide.title}
           </p>
         )}
 
-        <blockquote className="quote-body font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.35] mb-8">
+        <blockquote className="quote-body font-serif italic text-2xl md:text-4xl lg:text-5xl text-text-primary leading-[1.3] mb-10">
           {slide.quote}
         </blockquote>
 
@@ -113,7 +117,7 @@ export function QuoteSlide({ slide, isActive }: QuoteSlideProps) {
         )}
 
         {slide.content && (
-          <p className="quote-tail text-[15px] md:text-base text-text-secondary max-w-3xl mx-auto mt-5 leading-relaxed">
+          <p className="quote-tail text-[15px] md:text-lg text-text-secondary max-w-3xl mx-auto mt-6 leading-relaxed">
             {slide.content}
           </p>
         )}

@@ -120,8 +120,8 @@ export function Timeline({ isActive }: TimelineProps) {
                 </div>
                 <ul className="space-y-0.5">
                   {ms.items.map((item, i) => (
-                    <li key={i} className="text-xs text-text-secondary flex items-start gap-1.5">
-                      <span className="w-1 h-1 rounded-full mt-1.5 shrink-0 bg-white/20" />
+                    <li key={i} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
+                      <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0 bg-white/20" />
                       {item}
                     </li>
                   ))}

@@ -33,6 +33,13 @@ const tiers = [
   },
 ];
 
+// Desktop pyramid widths (reversed order: Tier 3 on top at 50%, Tier 1 at bottom at 100%)
+const desktopWidths: Record<string, string> = {
+  'Tier 3': 'md:w-1/2',
+  'Tier 2': 'md:w-3/4',
+  'Tier 1': 'md:w-full',
+};
+
 interface CapabilityTiersProps {
   isActive: boolean;
 }
@@ -66,9 +73,8 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
         {[...tiers].reverse().map((tier) => (
           <div
             key={tier.tier}
-            className="cap-tier glass glass-depth rounded-xl p-4 transition-all hover:border-white/10"
+            className={`cap-tier glass glass-depth rounded-xl p-4 transition-all hover:border-white/10 w-full ${desktopWidths[tier.tier] || 'md:w-full'}`}
             style={{
-              width: tier.tier === 'Tier 3' ? '50%' : tier.tier === 'Tier 2' ? '75%' : '100%',
               borderColor: `${tier.color}15`,
               borderWidth: 1,
             }}
@@ -76,7 +82,7 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
             <div className="flex flex-col md:flex-row md:items-center gap-3">
               <div className="flex items-center gap-3 flex-shrink-0">
                 <div
-                  className="font-mono text-3xl font-bold"
+                  className="font-mono text-2xl md:text-3xl font-bold"
                   style={{ color: tier.color }}
                 >
                   {tier.percentage}
@@ -85,22 +91,22 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
                   <h4 className="font-serif text-base font-bold text-text-primary">
                     {tier.name}
                   </h4>
-                  <p className="text-xs text-text-tertiary">{tier.description}</p>
+                  <p className="text-sm md:text-xs text-text-tertiary">{tier.description}</p>
                 </div>
               </div>
 
               <div className="md:ml-auto flex flex-col md:flex-row gap-3">
                 <ul className="space-y-0.5">
                   {tier.skills.map((skill, i) => (
-                    <li key={i} className="text-xs text-text-secondary flex items-start gap-1.5">
-                      <span className="w-1 h-1 rounded-full mt-1.5 shrink-0" style={{ background: tier.color }} />
+                    <li key={i} className="text-[15px] md:text-xs text-text-secondary flex items-start gap-1.5">
+                      <span className="w-1 h-1 rounded-full mt-2 md:mt-1.5 shrink-0" style={{ background: tier.color }} />
                       {skill}
                     </li>
                   ))}
                 </ul>
                 <div className="md:ml-4 md:pl-4 md:border-l md:border-white/5">
-                  <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider">Training</span>
-                  <p className="text-xs mt-0.5" style={{ color: tier.color }}>{tier.training}</p>
+                  <span className="text-sm md:text-xs font-mono text-text-tertiary uppercase tracking-wider">Training</span>
+                  <p className="text-sm md:text-xs mt-0.5" style={{ color: tier.color }}>{tier.training}</p>
                 </div>
               </div>
             </div>

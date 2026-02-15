@@ -56,33 +56,33 @@ export function TitleSlide({ slide, isActive }: TitleSlideProps) {
   const isFinalSlide = slide.id === 'final';
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-8">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-6 md:px-12">
       <div className="title-stage text-center max-w-4xl">
         {/* Logo */}
-        <div className="title-logo mb-8">
-          <span className="font-mono text-accent text-lg md:text-xl tracking-[0.3em] uppercase">
+        <div className="title-logo mb-10">
+          <span className="font-mono text-accent text-base md:text-lg tracking-[0.4em] uppercase font-medium">
             {isFinalSlide ? '' : 'ACKU-AI'}
           </span>
         </div>
 
         {/* Decorative line */}
-        <div className="title-line origin-center h-[1px] w-24 mx-auto mb-8 bg-gradient-to-r from-transparent via-accent to-transparent" />
+        <div className="title-line origin-center h-[1px] w-28 mx-auto mb-10 bg-gradient-to-r from-transparent via-accent/70 to-transparent" />
 
-        {/* Main title */}
-        <h1 className="title-main font-serif text-3xl md:text-5xl lg:text-6xl font-bold text-text-primary leading-tight mb-6">
+        {/* Main title - massive, editorial */}
+        <h1 className="title-main font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-[1.08] mb-8 tracking-tight">
           {slide.title}
         </h1>
 
         {/* Subtitle */}
         {slide.subtitle && (
-          <p className="title-subtitle font-mono text-sm md:text-base text-accent tracking-wider uppercase mb-8">
+          <p className="title-subtitle font-mono text-sm md:text-base text-accent tracking-[0.2em] uppercase mb-10 font-medium">
             {slide.subtitle}
           </p>
         )}
 
         {/* Content */}
         {slide.content && (
-          <p className="title-content text-base md:text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
+          <p className="title-content text-lg md:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
             {slide.content}
           </p>
         )}

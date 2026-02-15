@@ -48,7 +48,7 @@ export function ClosingSlide({ slide, isActive }: ClosingSlideProps) {
   }, [isActive]);
 
   return (
-    <div ref={containerRef} className="h-full flex items-center justify-center px-8 relative overflow-hidden">
+    <div ref={containerRef} className="h-full flex items-center justify-center px-4 md:px-8 relative overflow-hidden">
       {/* Ambient glow for closing */}
       <div className="absolute inset-0 pointer-events-none">
         <div

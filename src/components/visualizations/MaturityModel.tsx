@@ -9,40 +9,40 @@ const levels = [
     name: 'Unaware',
     description: 'No formal AI discussion at leadership level',
     detail: '"We have bigger priorities right now"',
-    color: '#3a3a4e',
-    width: '100%',
+    bgColor: 'rgba(255,255,255,0.03)',
+    desktopWidth: '100%',
   },
   {
     level: 2,
     name: 'Experimenting',
     description: 'A few enthusiasts, no coordination',
     detail: '60-70% of manufacturing companies',
-    color: '#00d4aa33',
-    width: '85%',
+    bgColor: 'rgba(0,212,170,0.06)',
+    desktopWidth: '85%',
   },
   {
     level: 3,
     name: 'Implementing',
     description: 'Dedicated budget, multiple use cases in production',
     detail: '15-20% of companies',
-    color: '#00d4aa66',
-    width: '68%',
+    bgColor: 'rgba(0,212,170,0.10)',
+    desktopWidth: '68%',
   },
   {
     level: 4,
     name: 'Scaling',
     description: 'AI is part of how the business operates',
     detail: 'Less than 5% of companies',
-    color: '#00d4aa99',
-    width: '50%',
+    bgColor: 'rgba(0,212,170,0.16)',
+    desktopWidth: '50%',
   },
   {
     level: 5,
     name: 'Transforming',
     description: 'AI fundamentally changes how the business competes',
     detail: 'Almost nobody is here yet',
-    color: '#00d4aa',
-    width: '35%',
+    bgColor: 'rgba(0,212,170,0.22)',
+    desktopWidth: '35%',
   },
 ];
 
@@ -88,27 +88,60 @@ export function MaturityModel({ isActive }: MaturityModelProps) {
         {levels.map((level) => (
           <div
             key={level.level}
-            className="maturity-step origin-left"
-            style={{ width: level.width }}
+            className="maturity-step origin-left w-full md:w-auto"
+            style={{ width: undefined }}
           >
-            <div
-              className="relative rounded-lg px-5 py-4 border border-white/5 transition-all hover:border-white/15"
-              style={{ background: level.color }}
-            >
-              <div className="flex items-baseline gap-3 mb-1">
-                <span className="font-mono text-2xl font-bold text-accent opacity-60">
-                  {level.level}
-                </span>
-                <span className="font-serif text-lg text-text-primary font-semibold">
-                  {level.name}
-                </span>
+            {/* Use a wrapper div for desktop pyramid width */}
+            <div className="hidden md:block" style={{ width: level.desktopWidth }}>
+              <div
+                className="relative rounded-lg px-5 py-4 border border-white/[0.08] transition-all hover:border-white/15"
+                style={{
+                  background: level.bgColor,
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <div className="flex items-baseline gap-3 mb-1">
+                  <span className="font-mono text-2xl font-bold text-accent opacity-60">
+                    {level.level}
+                  </span>
+                  <span className="font-serif text-lg text-text-primary font-semibold">
+                    {level.name}
+                  </span>
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  {level.description}
+                </p>
+                <p className="text-xs font-mono text-text-tertiary mt-1">
+                  {level.detail}
+                </p>
               </div>
-              <p className="text-sm text-text-secondary leading-relaxed">
-                {level.description}
-              </p>
-              <p className="text-xs font-mono text-text-tertiary mt-1">
-                {level.detail}
-              </p>
+            </div>
+            {/* Mobile: full-width card */}
+            <div className="md:hidden w-full">
+              <div
+                className="relative rounded-lg px-4 py-4 border border-white/[0.08] transition-all"
+                style={{
+                  background: level.bgColor,
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                }}
+              >
+                <div className="flex items-baseline gap-3 mb-1">
+                  <span className="font-mono text-xl font-bold text-accent opacity-60">
+                    {level.level}
+                  </span>
+                  <span className="font-serif text-base text-text-primary font-semibold">
+                    {level.name}
+                  </span>
+                </div>
+                <p className="text-[15px] text-text-secondary leading-relaxed">
+                  {level.description}
+                </p>
+                <p className="text-sm font-mono text-text-tertiary mt-1">
+                  {level.detail}
+                </p>
+              </div>
             </div>
           </div>
         ))}
