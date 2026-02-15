@@ -95,25 +95,31 @@ export function DividerSlide({ slide, isActive }: DividerSlideProps) {
         {slide.module}
       </div>
 
-      <div className="relative z-10 max-w-3xl">
-        <div className="divider-subtitle flex items-center gap-3 mb-4">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase" style={{ color: moduleColor }}>
+      <div className="relative z-10 max-w-4xl">
+        <div className="divider-subtitle flex items-center gap-3 mb-5">
+          <span
+            className="font-mono text-sm md:text-base tracking-[0.3em] uppercase font-bold"
+            style={{ color: moduleColor }}
+          >
             Module {slide.module}
           </span>
           {slide.subtitle && (
             <>
               <span className="text-text-tertiary">|</span>
-              <span className="font-mono text-xs text-text-tertiary">{slide.subtitle}</span>
+              <span className="font-mono text-xs md:text-sm text-text-tertiary">{slide.subtitle}</span>
             </>
           )}
         </div>
 
         <div
-          className="divider-bar origin-left h-[3px] w-20 mb-6 rounded-full"
-          style={{ background: moduleColor }}
+          className="divider-bar origin-left h-[3px] w-28 mb-8 rounded-full"
+          style={{ background: `linear-gradient(90deg, ${moduleColor}, ${moduleColor}88)` }}
         />
 
-        <h2 className="divider-title font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-text-primary leading-tight mb-6">
+        <h2
+          className="divider-title font-serif text-4xl md:text-6xl lg:text-[5.5rem] font-bold text-text-primary leading-[1.1] mb-6"
+          style={{ textShadow: `0 4px 24px ${moduleColor}22` }}
+        >
           {slide.title}
         </h2>
 

@@ -176,19 +176,8 @@ body {
     line-height: 1.5;
   }
 
-  .presentation-root p,
-  .presentation-root li {
-    min-font-size: 15px;
+  .presentation-root p:not([class*="text-"]),
+  .presentation-root li:not([class*="text-"]) {
     font-size: max(0.938rem, 15px);
-  }
-
-  .presentation-root h1,
-  .presentation-root h2,
-  .presentation-root h3 {
-    font-size: max(1.5rem, 24px);
-  }
-
-  .presentation-root h1 {
-    font-size: max(1.875rem, 30px);
   }
 }

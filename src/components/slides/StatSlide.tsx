@@ -103,7 +103,7 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
         {slide.stats?.map((stat, i) => (
           <div
             key={i}
-            className="stat-card glass rounded-xl p-6 md:p-8 text-center glow-accent"
+            className="stat-card glass glass-depth rounded-xl p-6 md:p-8 text-center glow-accent"
           >
             {stat.prefix && stat.prefix !== '$' && stat.prefix !== '<$' && (
               <span className="text-xs font-mono text-text-tertiary uppercase tracking-wider block mb-2" data-stat-text>
@@ -128,7 +128,7 @@ export function StatSlide({ slide, isActive }: StatSlideProps) {
 
       {/* Content */}
       {slide.content && (
-        <p className="stat-content text-sm text-text-secondary text-center max-w-2xl italic">
+        <p className="stat-content text-[15px] md:text-sm text-text-secondary text-center max-w-2xl italic">
           {slide.content}
         </p>
       )}

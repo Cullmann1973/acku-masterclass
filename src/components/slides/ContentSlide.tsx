@@ -63,7 +63,7 @@ export function ContentSlide({ slide, isActive }: ContentSlideProps) {
         {slide.items && slide.items.length > 0 && (
           <ul className="mt-8 space-y-3 text-left max-w-2xl mx-auto">
             {slide.items.map((item, index) => (
-              <li key={`${item}-${index}`} data-animate className="glass rounded-lg px-4 py-3 text-sm text-text-secondary">
+              <li key={`${item}-${index}`} data-animate className="glass glass-depth rounded-lg px-4 py-3 text-[15px] md:text-sm text-text-secondary">
                 {item}
               </li>
             ))}

@@ -66,7 +66,7 @@ export function CapabilityTiers({ isActive }: CapabilityTiersProps) {
         {[...tiers].reverse().map((tier) => (
           <div
             key={tier.tier}
-            className="cap-tier glass rounded-xl p-4 transition-all hover:border-white/10"
+            className="cap-tier glass glass-depth rounded-xl p-4 transition-all hover:border-white/10"
             style={{
               width: tier.tier === 'Tier 3' ? '50%' : tier.tier === 'Tier 2' ? '75%' : '100%',
               borderColor: `${tier.color}15`,

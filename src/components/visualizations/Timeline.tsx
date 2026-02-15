@@ -105,7 +105,7 @@ export function Timeline({ isActive }: TimelineProps) {
               </div>
 
               {/* Card */}
-              <div className="timeline-card flex-1 glass rounded-lg p-4 mb-1">
+              <div className="timeline-card flex-1 glass glass-depth rounded-lg p-4 mb-1">
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
                   <span className="font-mono text-xs font-bold" style={{ color: ms.color }}>
                     {ms.phase}
